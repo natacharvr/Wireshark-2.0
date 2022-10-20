@@ -15,9 +15,12 @@ public class Analyseur {
         trames = new ArrayList<Trame>();
     }
 
+    /**
+     * Découpe le fichier texte reçu en une liste de Trames
+     */
     public void découpage(){
         Scanner scan;
-        Pattern p = Pattern.compile("^([0-9]{4})\s{1,2}((.{2}\s){0,15}(.{2}){0,1}).*$");
+        Pattern p = Pattern.compile("^([\\w]{4})\s{1,2}(([\\w]{2}\s){0,15}([\\w]{2}){0,1}).*");
         try {
             scan = new Scanner(fichier);
         }
