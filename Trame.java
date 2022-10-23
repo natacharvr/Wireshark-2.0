@@ -5,17 +5,10 @@ public class Trame {
     private String type;
 
     //attributs ipv4
-    private int version;
-    private int headerLength;
-    private int size;
-    private int identifier;
-    private String sourceIp;
-    private String destinationIp;
-    private String protocol;
+    private Ipv4 ipv4;
 
     //attributs Tcp
-    private int sourcePort;
-    private int destinationPort;
+  
 
     public Trame(String contenu){
         this.contenu = contenu;
@@ -24,15 +17,9 @@ public class Trame {
         type();
         switch(type){
             case "0800" :
-                Ipv4(contenu.substring(43, contenu.length() -1));
+                ipv4 = new Ipv4(contenu.substring(43, contenu.length() -1));
                 break;
         }
-        switch(protocol){
-            case "06" :
-                Tcp(contenu.substring(43 + headerLength * 3 , contenu.length() -1));
-                break;
-        }
-
     }
 
     public String toString(){
@@ -41,13 +28,7 @@ public class Trame {
         res += "sourceMac: " + sourceMac + "\n";
         res += "destinationMac: " + destinationMac + "\n";
         res += "type: " + type + "\n";
-        res += "sourceIp: " + sourceIp + "\n";
-        res += "destinationIp: " + destinationIp + "\n";
-        res += "version: " + version + "\n";
-        res += "headerLength: " + headerLength + "\n";
-        res += "size: " + size + "\n";
-        res += "identifier: " + identifier + "\n";
-        res += "protocol: " + protocol + "\n";
+        res += ipv4.toString();
         return res;
     }
 
@@ -69,18 +50,4 @@ public class Trame {
         // System.out.println("type : " + this.type);
     }
 
-    private void Ipv4(String s){
-        version = Ipv4.version(s);
-        headerLength = Ipv4.headerLength(s);
-        size = Ipv4.size(s);
-        identifier = Ipv4.identifier(s);
-        sourceIp = Ipv4.sourceIp(s);
-        destinationIp = Ipv4.destinationIp(s);
-        protocol = Ipv4.protocol(s);
-    }
-
-    private void Tcp(String s){
-        System.out.println("j'ai un bout TCP");
-        System.out.println(s);
-    }
 }
