@@ -13,6 +13,7 @@ public class Analyseur {
     public Analyseur(String path){
         fichier = new File(path);  
         trames = new ArrayList<Trame>();
+        découpage();
     }
 
     /**
@@ -32,11 +33,10 @@ public class Analyseur {
             String line = scan.nextLine();
             String trame = "";
             while (line != ""){
-                System.out.println(line);
+                // System.out.println(line);
                 Matcher m = p.matcher(line);
                 if (m.find()){
                     trame += "\n" + m.group(2);
-                    //System.out.println(m.group(2));
                 }
                 if (!scan.hasNextLine()){
                     break;
