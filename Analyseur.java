@@ -36,7 +36,7 @@ public class Analyseur {
                 // System.out.println(line);
                 Matcher m = p.matcher(line);
                 if (m.find()){
-                    trame += "\n" + m.group(2);
+                    trame += " " + m.group(2);
                 }
                 if (!scan.hasNextLine()){
                     break;
@@ -58,16 +58,4 @@ public class Analyseur {
         }
         System.out.println(res);
     }
-    /*
-    
-
-    public String source(){
-        String res = "";
-        if (scan.hasNext()){
-            res += scan.next(Pattern.compile(".{2}"));
-                for (int i = 0; i < 5; i ++)
-                res += ":" + scan.next(Pattern.compile(".{2}"));
-        }
-        return res;
-    }*/
 }
