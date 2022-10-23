@@ -13,6 +13,7 @@ public class Analyseur {
     public Analyseur(String path){
         fichier = new File(path);  
         trames = new ArrayList<Trame>();
+        découpage();
     }
 
     /**
@@ -20,7 +21,8 @@ public class Analyseur {
      */
     public void découpage(){
         Scanner scan;
-        Pattern p = Pattern.compile("^([\\w]{4})\s{1,2}(([\\w]{2}\s){0,15}([\\w]{2}){0,1}).*");
+        Pattern p = Pattern.compile("^([\\w]{4})\s{1,3}(([\\w]{2}\s)*([\\w]{2})).*$");
+
         try {
             scan = new Scanner(fichier);
         }
@@ -28,23 +30,22 @@ public class Analyseur {
             System.out.println("Le fichier " + fichier + " n'existe pas");
             return;
         }
+        
         while (scan.hasNextLine()){
-            String line = scan.nextLine();
+            String line;;
             String trame = "";
-            while (line != ""){
-                System.out.println(line);
+            while (scan.hasNextLine()){
+                line = scan.nextLine();
                 Matcher m = p.matcher(line);
                 if (m.find()){
-                    trame += "\n" + m.group(2);
-                    //System.out.println(m.group(2));
+                    if ((trame != "") && (m.group(1).compareTo("0000") == 0))
+                        trames.add(new Trame(trame));
+
+                    trame += " " + m.group(2);
                 }
-                if (!scan.hasNextLine()){
-                    break;
-                }
-                line = scan.nextLine();
-            }
-            if (trame != "")
-            trames.add(new Trame(trame));
+                
+            }     
+            trames.add(new Trame(trame));       
         }
         scan.close();
     }
@@ -58,16 +59,4 @@ public class Analyseur {
         }
         System.out.println(res);
     }
-    /*
-    
-
-    public String source(){
-        String res = "";
-        if (scan.hasNext()){
-            res += scan.next(Pattern.compile(".{2}"));
-                for (int i = 0; i < 5; i ++)
-                res += ":" + scan.next(Pattern.compile(".{2}"));
-        }
-        return res;
-    }*/
 }
