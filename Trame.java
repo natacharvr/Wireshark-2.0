@@ -8,6 +8,7 @@ public class Trame {
     private int version;
     private int headerLength;
     private int size;
+    private int identifier;
     private String sourceIp;
     private String destinationIp;
     private String protocol;
@@ -45,7 +46,8 @@ public class Trame {
         res += "version: " + version + "\n";
         res += "headerLength: " + headerLength + "\n";
         res += "size: " + size + "\n";
-        res += "protocol: " + protocol + "\n"; 
+        res += "identifier: " + identifier + "\n";
+        res += "protocol: " + protocol + "\n";
         return res;
     }
 
@@ -71,6 +73,7 @@ public class Trame {
         version = Ipv4.version(s);
         headerLength = Ipv4.headerLength(s);
         size = Ipv4.size(s);
+        identifier = Ipv4.identifier(s);
         sourceIp = Ipv4.sourceIp(s);
         destinationIp = Ipv4.destinationIp(s);
         protocol = Ipv4.protocol(s);

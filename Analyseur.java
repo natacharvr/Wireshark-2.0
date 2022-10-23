@@ -21,7 +21,8 @@ public class Analyseur {
      */
     public void découpage(){
         Scanner scan;
-        Pattern p = Pattern.compile("^([\\w]{4})\s{1,3}(([\\w]{2}\s)*([\\w]{2})).*");
+        Pattern p = Pattern.compile("^([\\w]{4})\s{1,3}(([\\w]{2}\s)*([\\w]{2})).*$");
+
         try {
             scan = new Scanner(fichier);
         }
@@ -29,12 +30,12 @@ public class Analyseur {
             System.out.println("Le fichier " + fichier + " n'existe pas");
             return;
         }
+        
         while (scan.hasNextLine()){
             String line;;
             String trame = "";
             while (scan.hasNextLine()){
                 line = scan.nextLine();
-                // System.out.println(line);
                 Matcher m = p.matcher(line);
                 if (m.find()){
                     if ((trame != "") && (m.group(1).compareTo("0000") == 0))
