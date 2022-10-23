@@ -21,7 +21,7 @@ public class Analyseur {
      */
     public void découpage(){
         Scanner scan;
-        Pattern p = Pattern.compile("^([\\w]{4})\s{1,2}(([\\w]{2}\s){0,15}([\\w]{2}){0,1}).*");
+        Pattern p = Pattern.compile("^([\\w]{4})\s{1,3}(([\\w]{2}\s)*([\\w]{2})).*");
         try {
             scan = new Scanner(fichier);
         }
@@ -30,21 +30,21 @@ public class Analyseur {
             return;
         }
         while (scan.hasNextLine()){
-            String line = scan.nextLine();
+            String line;;
             String trame = "";
-            while (line != ""){
+            while (scan.hasNextLine()){
+                line = scan.nextLine();
                 // System.out.println(line);
                 Matcher m = p.matcher(line);
                 if (m.find()){
+                    if ((trame != "") && (m.group(1).compareTo("0000") == 0))
+                        trames.add(new Trame(trame));
+
                     trame += " " + m.group(2);
                 }
-                if (!scan.hasNextLine()){
-                    break;
-                }
-                line = scan.nextLine();
-            }
-            if (trame != "")
-            trames.add(new Trame(trame));
+                
+            }     
+            trames.add(new Trame(trame));       
         }
         scan.close();
     }

@@ -10,6 +10,11 @@ public class Trame {
     private int size;
     private String sourceIp;
     private String destinationIp;
+    private String protocol;
+
+    //attributs Tcp
+    private int sourcePort;
+    private int destinationPort;
 
     public Trame(String contenu){
         this.contenu = contenu;
@@ -21,6 +26,12 @@ public class Trame {
                 Ipv4(contenu.substring(43, contenu.length() -1));
                 break;
         }
+        switch(protocol){
+            case "06" :
+                Tcp(contenu.substring(43 + headerLength * 3 , contenu.length() -1));
+                break;
+        }
+
     }
 
     public String toString(){
@@ -34,6 +45,7 @@ public class Trame {
         res += "version: " + version + "\n";
         res += "headerLength: " + headerLength + "\n";
         res += "size: " + size + "\n";
+        res += "protocol: " + protocol + "\n"; 
         return res;
     }
 
@@ -61,5 +73,11 @@ public class Trame {
         size = Ipv4.size(s);
         sourceIp = Ipv4.sourceIp(s);
         destinationIp = Ipv4.destinationIp(s);
+        protocol = Ipv4.protocol(s);
+    }
+
+    private void Tcp(String s){
+        System.out.println("j'ai un bout TCP");
+        System.out.println(s);
     }
 }
