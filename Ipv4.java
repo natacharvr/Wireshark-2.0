@@ -10,7 +10,13 @@ public class Ipv4 {
     private String sourceIp;
     private String destinationIp;
     private String protocol;
+    private int TTL;
     private Tcp tcp;
+
+
+    public int getTTL() {
+        return TTL;
+    }
 
     public int getVersion() {
         return version;
@@ -49,8 +55,8 @@ public class Ipv4 {
         sourceIp(s);
         destinationIp(s);
         protocol(s);
+        TTL(s);
 
-        
         switch(protocol){
             case "06" :
                 tcp = new Tcp(s.substring(headerLength * 3 , s.length() -1));
@@ -79,9 +85,12 @@ public class Ipv4 {
         identifier = Integer.parseInt(res, 16);
     }
 
+    public void TTL(String contenu){
+        TTL = Integer.parseInt(contenu.substring(24, 26), 16);
+    }
+
     public void protocol(String contenu){
-        String res = contenu.substring(27, 29);
-        protocol = res;
+        protocol = contenu.substring(27, 29);
     }
 
 
@@ -122,6 +131,7 @@ public class Ipv4 {
         res += "size: " + size + "\n";
         res += "identifier: " + identifier + "\n";
         res += "protocol: " + protocol + "\n";
+        res += "TTL: " + TTL + "\n";
         return res;
     }
 

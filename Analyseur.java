@@ -32,14 +32,16 @@ public class Analyseur {
         }
         
         while (scan.hasNextLine()){
-            String line;;
+            String line;
             String trame = "";
             while (scan.hasNextLine()){
                 line = scan.nextLine();
                 Matcher m = p.matcher(line);
                 if (m.find()){
-                    if ((trame != "") && (m.group(1).compareTo("0000") == 0))
+                    if (!(trame.equals("")) && (m.group(1).compareTo("0000") == 0)){
                         trames.add(new Trame(trame));
+                        trame = "";
+                    }
 
                     trame += " " + m.group(2);
                 }

@@ -17,7 +17,7 @@ public class Trame {
         type();
         switch(type){
             case "0800" :
-                ipv4 = new Ipv4(contenu.substring(43, contenu.length() -1));
+                ipv4 = new Ipv4(this.contenu.substring(43, contenu.length() -1));
                 break;
         }
     }
