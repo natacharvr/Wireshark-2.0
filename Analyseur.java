@@ -16,6 +16,10 @@ public class Analyseur {
         découpage();
     }
 
+    public int nbTrames(){
+        return trames.size();
+    }
+
     /**
      * Découpe le fichier texte reçu en une liste de Trames
      */
@@ -32,14 +36,16 @@ public class Analyseur {
         }
         
         while (scan.hasNextLine()){
-            String line;;
+            String line;
             String trame = "";
             while (scan.hasNextLine()){
                 line = scan.nextLine();
                 Matcher m = p.matcher(line);
                 if (m.find()){
-                    if ((trame != "") && (m.group(1).compareTo("0000") == 0))
+                    if (!(trame.equals("")) && (m.group(1).compareTo("0000") == 0)){
                         trames.add(new Trame(trame));
+                        trame = "";
+                    }
 
                     trame += " " + m.group(2);
                 }
@@ -58,5 +64,34 @@ public class Analyseur {
             i ++;
         }
         System.out.println(res);
+    }
+
+    public List<String> diffIpSource(){
+        List<String> res = new ArrayList<String>();
+        String ip;
+        for (Trame t : trames){
+            ip = t.getSourceIp();
+            if (!res.contains(ip)){
+                res.add(ip);
+            }
+        }
+        return res;
+    }
+
+    public List<String> diffIp(){
+        List<String> res = new ArrayList<String>();
+        String ipS;
+        String ipD;
+        for (Trame t : trames){
+            ipS = t.getSourceIp();
+            if (!res.contains(ipS)){
+                res.add(ipS);
+            }
+            ipD = t.getDestinationIp();
+            if (!res.contains(ipD)){
+                res.add(ipD);
+            }
+        }
+        return res;
     }
 }

@@ -17,7 +17,7 @@ public class Trame {
         type();
         switch(type){
             case "0800" :
-                ipv4 = new Ipv4(contenu.substring(43, contenu.length() -1));
+                ipv4 = new Ipv4(this.contenu.substring(43, contenu.length() -1));
                 break;
         }
     }
@@ -48,6 +48,14 @@ public class Trame {
         this.type = contenu.substring(37,42);
         type = type.replace("\s", "");
         // System.out.println("type : " + this.type);
+    }
+
+    public String getSourceIp(){
+        return ipv4.getSourceIp();
+    }
+
+    public String getDestinationIp(){
+        return ipv4.getDestinationIp();
     }
 
 }
