@@ -48,14 +48,14 @@ public class Ipv4 {
 
     public Ipv4(String s){
         contenu = s;
-        version(s);
-        headerLength(s);
-        size(s);
-        identifier(s);
-        sourceIp(s);
-        destinationIp(s);
-        protocol(s);
-        TTL(s);
+        version();
+        headerLength();
+        size();
+        identifier();
+        sourceIp();
+        destinationIp();
+        protocol();
+        TTL();
 
         switch(protocol){
             case "06" :
@@ -65,36 +65,36 @@ public class Ipv4 {
 
     }
 
-    public void version(String contenu){
+    public void version(){
         version = Integer.parseInt("" + contenu.charAt(0));
     }
 
-    public void headerLength(String contenu){
+    public void headerLength(){
         headerLength = Integer.parseInt("" + contenu.charAt(1)) * 4;
     }
 
-    public void size(String contenu){
+    public void size(){
         String res = contenu.substring(6, 11);
         res = res.replace(" ", "");
         size = Integer.parseInt(res, 16);
     }
     
-    public void identifier(String contenu){
+    public void identifier(){
         String res = contenu.substring(13, 17); //METTRE LES BONS INDICES"
         res = res.replace("\s", "");
         identifier = Integer.parseInt(res, 16);
     }
 
-    public void TTL(String contenu){
+    public void TTL(){
         TTL = Integer.parseInt(contenu.substring(24, 26), 16);
     }
 
-    public void protocol(String contenu){
+    public void protocol(){
         protocol = contenu.substring(27, 29);
     }
 
 
-    public void sourceIp(String contenu){
+    public void sourceIp(){
         String res = contenu.substring(36, 47);
         Pattern p = Pattern.compile("(..) (..) (..) (..)");
         Matcher m = p.matcher(res);
@@ -108,7 +108,7 @@ public class Ipv4 {
         sourceIp = res;
     }
 
-    public void destinationIp(String contenu){
+    public void destinationIp(){
         String res = contenu.substring(48, 59);
         Pattern p = Pattern.compile("(..) (..) (..) (..)");
         Matcher m = p.matcher(res);
@@ -132,6 +132,7 @@ public class Ipv4 {
         res += "identifier: " + identifier + "\n";
         res += "protocol: " + protocol + "\n";
         res += "TTL: " + TTL + "\n";
+        res += tcp.toString();
         return res;
     }
 

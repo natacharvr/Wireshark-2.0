@@ -50,4 +50,12 @@ public class Trame {
         // System.out.println("type : " + this.type);
     }
 
+    public String getSourceIp(){
+        return ipv4.getSourceIp();
+    }
+
+    public String getDestinationIp(){
+        return ipv4.getDestinationIp();
+    }
+
 }
