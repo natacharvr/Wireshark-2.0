@@ -1,3 +1,5 @@
+import java.util.List;
+
 public class Trame {
     private String contenu;
     private String sourceMac;
@@ -56,6 +58,26 @@ public class Trame {
 
     public String getDestinationIp(){
         return ipv4.getDestinationIp();
+    }
+
+    public int indiceSource(List<String> ipList){
+        String source = getSourceIp();
+        for(int i = 0; i < ipList.size(); i++){
+            if(ipList.get(i).equals(source)){
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public int indiceDestination(List<String> ipList){
+        String destination = getDestinationIp();
+        for(int i = 0; i < ipList.size(); i++){
+            if(ipList.get(i).equals(destination)){
+                return i;
+            }
+        }
+        return -1;
     }
 
 }

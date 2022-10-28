@@ -10,6 +10,19 @@ public class Analyseur {
     private File fichier;
     private List<Trame> trames;
 
+    /**
+     * @return un tableau dans avec les correspondances entre la colonne de l'ip dans l'affichage et les trames (pour avoir les x pour les flèches)
+     */
+    public int[][] sourceDest(){
+        List<String> l = diffIp();
+        int[][] res = new int[trames.size()][2];
+        for (int i = 0; i < trames.size(); i++){
+            res[i][0] = trames.get(i).indiceSource(l);
+            res[i][1] = trames.get(i).indiceDestination(l);
+        }
+        return res;
+    }
+
     public Analyseur(String path){
         fichier = new File(path);  
         trames = new ArrayList<Trame>();
@@ -64,18 +77,6 @@ public class Analyseur {
             i ++;
         }
         System.out.println(res);
-    }
-
-    public List<String> diffIpSource(){
-        List<String> res = new ArrayList<String>();
-        String ip;
-        for (Trame t : trames){
-            ip = t.getSourceIp();
-            if (!res.contains(ip)){
-                res.add(ip);
-            }
-        }
-        return res;
     }
 
     public List<String> diffIp(){
