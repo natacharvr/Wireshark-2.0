@@ -10,10 +10,27 @@ public class Analyseur {
     private File fichier;
     private List<Trame> trames;
 
+    /**
+     * @return un tableau dans avec les correspondances entre la colonne de l'ip dans l'affichage et les trames (pour avoir les x pour les flèches)
+     */
+    public int[][] sourceDest(){
+        List<String> l = diffIp();
+        int[][] res = new int[trames.size()][2];
+        for (int i = 0; i < trames.size(); i++){
+            res[i][0] = trames.get(i).indiceSource(l);
+            res[i][1] = trames.get(i).indiceDestination(l);
+        }
+        return res;
+    }
+
     public Analyseur(String path){
         fichier = new File(path);  
         trames = new ArrayList<Trame>();
         découpage();
+    }
+
+    public int nbTrames(){
+        return trames.size();
     }
 
     /**
@@ -32,14 +49,16 @@ public class Analyseur {
         }
         
         while (scan.hasNextLine()){
-            String line;;
+            String line;
             String trame = "";
             while (scan.hasNextLine()){
                 line = scan.nextLine();
                 Matcher m = p.matcher(line);
                 if (m.find()){
-                    if ((trame != "") && (m.group(1).compareTo("0000") == 0))
+                    if (!(trame.equals("")) && (m.group(1).compareTo("0000") == 0)){
                         trames.add(new Trame(trame));
+                        trame = "";
+                    }
 
                     trame += " " + m.group(2);
                 }
@@ -58,5 +77,22 @@ public class Analyseur {
             i ++;
         }
         System.out.println(res);
+    }
+
+    public List<String> diffIp(){
+        List<String> res = new ArrayList<String>();
+        String ipS;
+        String ipD;
+        for (Trame t : trames){
+            ipS = t.getSourceIp();
+            if (!res.contains(ipS)){
+                res.add(ipS);
+            }
+            ipD = t.getDestinationIp();
+            if (!res.contains(ipD)){
+                res.add(ipD);
+            }
+        }
+        return res;
     }
 }
