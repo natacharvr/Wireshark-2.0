@@ -27,12 +27,12 @@ public class Graph extends JPanel {
 
     @Override
     public int getHeight(){
-        return nbTrames * (deltaY + 2); 
+        return (nbTrames + 2) * deltaY; 
     }
 
     @Override
     public int getWidth(){
-        return nbLignes * (deltaX + 1); 
+        return (nbLignes + 1) * (deltaX); 
     }
 
     public void drawArrow(Graphics g, int x1, int y1, int x2, int y2){

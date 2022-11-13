@@ -23,22 +23,17 @@ public class TestGraphique {
         JPanel total = new JPanel();
         total.setLayout(new BoxLayout(total, BoxLayout.X_AXIS));
         total.setAlignmentY(JPanel.TOP_ALIGNMENT);
-        // total.setBorder(blackline);
 
 
         //Panneau du graphique et de sa légende
         JPanel graphique = new JPanel();
         graphique.setLayout(new BoxLayout(graphique, BoxLayout.Y_AXIS));
         graphique.setAlignmentY(JPanel.TOP_ALIGNMENT);
-
-        // graphique.setBorder(blackline);
+        graphique.setBorder(blackline);
 
 
         //Le graphique
         Graph graph = new Graph(ListIp.size(), a.nbTrames(), a.sourceDest());
-        JScrollPane scrollGraph = new JScrollPane(graph);
-        // scrollGraph.setBorder(blackline);
-
         
         //La légende
         JPanel legende = new JPanel();
@@ -47,22 +42,25 @@ public class TestGraphique {
         legende.setSize(graph.getWidth(), 50);
         for (String s : ListIp) {
             JLabel txt = new JLabel(s);
-            JLabel space = new JLabel("                         ");
+            JLabel space = new JLabel("                          ");
             legende.add(space);
             legende.add(txt);
         } 
-        // legende.setBorder(blackline);
+        JLabel spac = new JLabel("                                 ");
+        legende.add(spac);
+        legende.setBorder(blackline);
 
 
         //Ajout au panel
         graphique.add(legende);
-        graphique.add(scrollGraph);
+        graphique.add(graph);
+        graphique.setPreferredSize(graph.getPreferredSize());
+
 
         //Panneau des descriptions de trames
         JPanel descrTrames = new JPanel();
         descrTrames.setLayout(new BoxLayout(descrTrames, BoxLayout.Y_AXIS));
         descrTrames.setAlignmentY(JPanel.TOP_ALIGNMENT);
-        descrTrames.setBorder(blackline);
         JLabel space = new JLabel(" ");
         descrTrames.add(space);
         JLabel space1 = new JLabel(" ");
