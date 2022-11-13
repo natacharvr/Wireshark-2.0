@@ -79,6 +79,10 @@ public class Analyseur {
         System.out.println(res);
     }
 
+    public String DataTrameI(int i){
+        return trames.get(i).toString();
+    }
+
     public List<String> diffIp(){
         List<String> res = new ArrayList<String>();
         String ipS;

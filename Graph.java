@@ -7,11 +7,32 @@ public class Graph extends JPanel {
     int nbLignes;
     int nbTrames;
     int [][] sourceDest;
+    public static final int deltaX = 150;
+    public static final int deltaY = 48;
 
     public Graph(int nbLignes, int nbTrames, int[][] sourceDest) {
+        super();
         this.nbLignes = nbLignes;
         this.nbTrames = nbTrames;
         this.sourceDest = sourceDest;
+    }
+
+    @Override
+    public Dimension getPreferredSize() {
+        if (isPreferredSizeSet()) {
+            return super.getPreferredSize();
+        }
+        return new Dimension(getWidth(), getHeight());
+    }
+
+    @Override
+    public int getHeight(){
+        return nbTrames * (deltaY + 2); 
+    }
+
+    @Override
+    public int getWidth(){
+        return nbLignes * (deltaX + 1); 
     }
 
     public void drawArrow(Graphics g, int x1, int y1, int x2, int y2){
@@ -35,10 +56,6 @@ public class Graph extends JPanel {
     }
 
     public void paint(Graphics g){
-        int tailleX = getWidth();
-        int tailleY = getHeight();
-        int deltaX = tailleX / (nbLignes+1);
-        int deltaY = tailleY / (nbTrames+1);
         int x = 0;
         int y = 0;
         int x1 = 0;
