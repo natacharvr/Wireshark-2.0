@@ -1,6 +1,9 @@
+package testsAnnexes;
 import javax.swing.*;
 import java.awt.GridLayout;
 public class Interface{
+    //Classe inutile, juste des expérimentations avec l'interface de java swing
+    //Voir ici pour les différents composants possibles
    public static void main(String[] args) {
         // Définissez le frame
         JFrame frame = new JFrame("Hello World");
