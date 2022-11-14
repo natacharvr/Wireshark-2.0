@@ -26,4 +26,4 @@ Les découpages internes s'opèrent en sélectionnant les bons indices dans la s
 Le programme ouvre une fenêtre graphqiue qui représente avec des flèches les échanges de trames entre différentes machines. Les informations utiles des trames sont données sur la droite du graphique, alignées avec la flèche correspondante.
 Pendant que la fenêtre est ouverte, le programme exporte le résultat graphique sous forme d'image png dans le dossier courant. 
 #### ATTENTION
-Cette opération d'export de graphique est un petit peu longue (quelques secondes) et nécéssite d'avoir la fenêtre ouverte pour fonctionner. Si vous fermez la fenêtre trop vite, l'image exportée ne sera pas complète. Attendes quelques secondes avant de fermer la fenêtre pour obtenir un export complet.
+Cette opération d'export de graphique est un petit peu longue (quelques secondes) et nécéssite d'avoir la fenêtre ouverte pour fonctionner. Si vous fermez la fenêtre trop vite, l'image exportée ne sera pas complète. Attendez quelques secondes avant de fermer la fenêtre pour obtenir un export complet.
