@@ -1,3 +1,4 @@
+package testsAnnexes;
 import javax.swing.*;
 import java.awt.GridLayout;
 public class Interface{
