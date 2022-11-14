@@ -2,20 +2,23 @@ import javax.swing.*;
 import java.awt.*;
 
 import java.awt.Graphics;
+import java.util.*;
 
 public class Graph extends JPanel {
     //Classe qui permet de dessiner le graphique de l'interface
     int nbLignes; //Le nombre d'Ip différentes 
     int nbTrames; //Le nombre de trames à dessiner
     int [][] sourceDest; //Un tableau qui contient des couples indice Ip source, indice Ip destination (donc compris entre 0 et nbTrames)
+    Analyseur a;
     public static final int deltaX = 150; //L'espace entre deux lignes verticales
     public static final int deltaY = 48; //L'escapce entre deux lignes horizontales
 
-    public Graph(int nbLignes, int nbTrames, int[][] sourceDest) {
+    public Graph(int nbLignes, int nbTrames, int[][] sourceDest, Analyseur a) {
         super();
         this.nbLignes = nbLignes;
         this.nbTrames = nbTrames;
         this.sourceDest = sourceDest;
+        this.a = a;
     }
 
     /* 
@@ -46,18 +49,24 @@ public class Graph extends JPanel {
      * @param x2 L'abscisse de la destination de la flèche
      * @param y2 L'ordonnée de la destination de la flèche
      */
-    public void drawArrow(Graphics g, int x1, int y1, int x2, int y2){
+    public void drawArrow(Graphics g, int x1, int y1, int x2, int y2, int sourcePort, int destinationPort){
         Polygon triangle;
+        String sp = "port source : " + sourcePort;
+        String dp = "port destination : " + destinationPort;
         if (x1 < x2){
             int[] xpoints = {x2 - 6, x2 - 6, x2};
             int[] ypoints = {y2 - 4, y2 + 4, y2};
             triangle = new Polygon(xpoints, ypoints, 3);
+            g.drawString(sp, x1, y1 - 2);
+            g.drawString(dp, x2 - 15, y2 + 11);
 
         }
         else {
             int[] xpoints = {x2 + 6, x2 + 6, x2};
             int[] ypoints = {y2 - 4, y2 + 4, y2};
             triangle = new Polygon(xpoints, ypoints, 3);
+            g.drawString(sp, x1 - 15, y1 - 2);
+            g.drawString(dp, x2, y2 + 11);
 
         }
         
@@ -84,7 +93,7 @@ public class Graph extends JPanel {
             y = (i+1) * deltaY;
             x1 = (sourceDest[i][0] + 1) * deltaX;
             x2 = (sourceDest[i][1] + 1) * deltaX;
-            drawArrow(g, x1, y, x2, y);
+            drawArrow(g, x1, y, x2, y, a.getSourcePortI(i), a.getDestinationPortI(i));
         }
     }
     

@@ -185,4 +185,16 @@ public class Ipv4 {
         return res;
     }
 
+    public int getSourcePort(){
+        if (tcp != null)
+        return tcp.getSourcePort();
+        return -1;
+    }
+
+    public int getDestinationPort(){
+        if (tcp != null)
+        return tcp.getDestinationPort();
+        return -1;
+    }
+
 }

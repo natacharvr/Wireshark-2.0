@@ -91,6 +91,14 @@ public class Analyseur {
         return trames.get(i).toString();
     }
 
+    public int getSourcePortI(int i){
+        return trames.get(i).getSourcePort();
+    }
+
+    public int getDestinationPortI(int i){
+        return  trames.get(i).getDestinationPort();
+    }
+
     /**
      * Itère sur les trames et crée un tableau des ip qui interragissent, sans doublons
      * @return la liste des différentes Ip qui interagissent dans les trames fournies

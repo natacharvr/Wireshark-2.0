@@ -37,7 +37,7 @@ public class TestGraphique {
 
 
         //Le graphique
-        Graph graph = new Graph(ListIp.size(), a.nbTrames(), a.sourceDest());
+        Graph graph = new Graph(ListIp.size(), a.nbTrames(), a.sourceDest(), a);
         
         //La légende
         JPanel legende = new JPanel();
@@ -58,9 +58,8 @@ public class TestGraphique {
         //Ajout au panel
         graphique.add(legende);
         graphique.add(graph);
-        graphique.setPreferredSize(graph.getPreferredSize());
-
-
+        graphique.setPreferredSize(graph.getPreferredSize());        
+        
         //Panneau des descriptions de trames
         JPanel descrTrames = new JPanel();
         descrTrames.setLayout(new BoxLayout(descrTrames, BoxLayout.Y_AXIS));
@@ -73,7 +72,7 @@ public class TestGraphique {
         descrTrames.add(space2);
         JLabel space3 = new JLabel(" ");
         descrTrames.add(space3);
-
+        
         for (int i = 0; i < a.nbTrames(); i ++){            
             JLabel txt = new JLabel(a.DataTrameI(i));
             descrTrames.add(txt);
@@ -81,22 +80,23 @@ public class TestGraphique {
             descrTrames.add(space4);
             JLabel space5 = new JLabel(" ");
             descrTrames.add(space5);
-
+            
         }
-
+        
         //ajout au total
         total.add(graphique);
         total.add(descrTrames);
-
+        
         JScrollPane scrollGraphLegende = new JScrollPane(total);
         fenetre.add(scrollGraphLegende);
 
         //Affichage des éléments :
         fenetre.setVisible(true);
+        
 
         //export 
         BufferedImage image = new BufferedImage(total.getSize().width, total.getSize().height, BufferedImage.TYPE_3BYTE_BGR); 
-
+        
         Graphics g = image.createGraphics();
         total.paint(g);
         g.dispose();

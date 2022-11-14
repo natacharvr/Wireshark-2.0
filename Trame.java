@@ -8,8 +8,6 @@ public class Trame {
 
     //attribut ipv4
     private Ipv4 ipv4 = null; //Un attribut de type Ipv4, qui contient tous les attributs liés si la trame est de type ipv4
-
-    //attribut Tcp
   
 
     public Trame(String contenu){
@@ -110,6 +108,14 @@ public class Trame {
             }
         }
         return -1;
+    }
+
+    public int getSourcePort(){
+        return ipv4.getSourcePort();
+    }
+
+    public int getDestinationPort(){
+        return ipv4.getDestinationPort();
     }
 
 }

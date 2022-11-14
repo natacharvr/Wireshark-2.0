@@ -10,11 +10,19 @@ public class Tcp { // A COMPLETER
     }
 
     private void sourcePort(){
-        sourcePort = 0;
+        sourcePort = 8; //valeurs par défaut à changer, mises juste pour les tests
     }
 
     private void destinationPort(){
-        destinationPort = 0;
+        destinationPort = 4; //valeurs par défaut à changer, mises juste pour les tests
+    }
+
+    public int getSourcePort(){
+        return sourcePort;
+    }
+
+    public int getDestinationPort(){
+        return destinationPort;
     }
 
 }
