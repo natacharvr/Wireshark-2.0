@@ -2,7 +2,6 @@ import javax.swing.*;
 import java.awt.*;
 
 import java.awt.Graphics;
-import java.util.*;
 
 public class Graph extends JPanel {
     //Classe qui permet de dessiner le graphique de l'interface
