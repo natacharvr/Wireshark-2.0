@@ -4,11 +4,12 @@ import java.awt.*;
 import java.awt.Graphics;
 
 public class Graph extends JPanel {
-    int nbLignes;
-    int nbTrames;
-    int [][] sourceDest;
-    public static final int deltaX = 150;
-    public static final int deltaY = 48;
+    //Classe qui permet de dessiner le graphique de l'interface
+    int nbLignes; //Le nombre d'Ip différentes 
+    int nbTrames; //Le nombre de trames à dessiner
+    int [][] sourceDest; //Un tableau qui contient des couples indice Ip source, indice Ip destination (donc compris entre 0 et nbTrames)
+    public static final int deltaX = 150; //L'espace entre deux lignes verticales
+    public static final int deltaY = 48; //L'escapce entre deux lignes horizontales
 
     public Graph(int nbLignes, int nbTrames, int[][] sourceDest) {
         super();
@@ -17,6 +18,9 @@ public class Graph extends JPanel {
         this.sourceDest = sourceDest;
     }
 
+    /* 
+     * Permet d'obtenir la vraie taille du panel pour l'affichage (autrement problèmes avec la scrollBar)
+     */
     @Override
     public Dimension getPreferredSize() {
         if (isPreferredSizeSet()) {
@@ -35,6 +39,13 @@ public class Graph extends JPanel {
         return (nbLignes + 1) * (deltaX); 
     }
 
+    /**
+     * @param g L'outil graphique
+     * @param x1 l'abscisse de l'origine de la flèche
+     * @param y1 L'ordonnée de l'origine de la flèche
+     * @param x2 L'abscisse de la destination de la flèche
+     * @param y2 L'ordonnée de la destination de la flèche
+     */
     public void drawArrow(Graphics g, int x1, int y1, int x2, int y2){
         Polygon triangle;
         if (x1 < x2){
@@ -55,6 +66,9 @@ public class Graph extends JPanel {
         g.fillPolygon(triangle);
     }
 
+    /* (non-Javadoc)
+     * Dessine le graphqiue, avec nbTrames flèches espacées de deltaY, dont les coordonnées en x sont données grâce au tableau sourceDest
+     */
     public void paint(Graphics g){
         int x = 0;
         int y = 0;
@@ -73,18 +87,5 @@ public class Graph extends JPanel {
             drawArrow(g, x1, y, x2, y);
         }
     }
-
-//      public static void main(String[] args) {
-//         JFrame frame = new JFrame("Wireshark 2.0");
-//         frame.setSize(500,500);
-//         Graph g = new Graph(5, 10);
-//         frame.setLayout(new GridLayout(2, 1));
-
-//         frame.getContentPane().add(g);
-
-//         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//         frame.setVisible(true);
-
-//     }
     
 }

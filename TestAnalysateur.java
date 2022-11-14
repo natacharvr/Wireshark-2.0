@@ -1,18 +1,11 @@
-// import java.util.ArrayList;
 import java.util.List;
-// import java.awt.GridLayout;
-import javax.swing.*;
-
-import java.awt.*;
-
-// import java.util.regex.Matcher;
-// import java.util.regex.Pattern;
 
 public class TestAnalysateur {
+    //Classe de tests du découpage des trames, utiliser test.txt pour avoir beaucoup de trames, et testTrames.txt pour un fichier n'en contenant que 2
     public static void main(String[] args) {
-        Analyseur a = new Analyseur("test.txt");
-        // a.afficherTrames();
-        List<String> ListIp = a.diffIp();
+        Analyseur a = new Analyseur("trameTest.txt"); //Se charge de tous les découpages
+        a.afficherTrames(); //Affiche les toString de toutes les trames, donc tous les champs récupérés
+        List<String> ListIp = a.diffIp(); //Sert pour l'affichage graphique, voir TestGraphqiue.java
     
     }
 }
