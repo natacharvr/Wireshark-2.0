@@ -1,4 +1,8 @@
 import java.awt.*;
+import java.awt.image.*;
+import java.io.*;
+
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.Border;
 
@@ -89,5 +93,17 @@ public class TestGraphique {
 
         //Affichage des éléments :
         fenetre.setVisible(true);
+
+        //export 
+        BufferedImage image = new BufferedImage(total.getSize().width, total.getSize().height, BufferedImage.TYPE_3BYTE_BGR); 
+
+        Graphics g = image.createGraphics();
+        total.paint(g);
+        g.dispose();
+        try{
+            ImageIO.write(image,"png",new File("test.png"));
+        }catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 }
