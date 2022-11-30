@@ -119,4 +119,13 @@ public class Analyseur {
         }
         return res;
     }
+
+    public List<String> interragitAvec(String s){
+        List<String> res = new ArrayList<String>();
+        for (Trame t : trames){
+            if (t.getSourceIp().equals(s)) res.add(t.getDestinationIp());
+            if (t.getDestinationIp().equals(s)) res.add(t.getSourceIp());
+        }
+        return res;
+    }
 }
