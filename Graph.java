@@ -75,7 +75,7 @@ public class Graph extends JPanel {
     }
 
     /* (non-Javadoc)
-     * Dessine le graphqiue, avec nbTrames flèches espacées de deltaY, dont les coordonnées en x sont données grâce au tableau sourceDest
+     * Dessine le graphique, avec nbTrames flèches espacées de deltaY, dont les coordonnées en x sont données grâce au tableau sourceDest
      */
     public void paint(Graphics g){
         int x = 0;

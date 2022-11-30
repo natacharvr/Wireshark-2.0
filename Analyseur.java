@@ -9,19 +9,7 @@ import java.util.regex.Pattern;
 public class Analyseur {
     private File fichier; //le fichier texte contenant des trames
     private List<Trame> trames; //une liste de Trame extraite du fichier
-
-    /**
-     * @return un tableau dans avec les correspondances entre la colonne de l'ip dans l'affichage et les trames (pour avoir les x pour les flèches)
-     */
-    public int[][] sourceDest(){
-        List<String> l = diffIp();
-        int[][] res = new int[trames.size()][2];
-        for (int i = 0; i < trames.size(); i++){
-            res[i][0] = trames.get(i).indiceSource(l);
-            res[i][1] = trames.get(i).indiceDestination(l);
-        }
-        return res;
-    }
+    private List<Trame> tramesConcernees; //une liste de trames après un filtre appliqué par l'utilisateur
 
     public Analyseur(String path){
         fichier = new File(path);  
@@ -84,19 +72,57 @@ public class Analyseur {
     }
 
     /**
+     * Cette fonction trie les trames du fichier pour ne garder que celles qui proviennent ou vont vers les Ip selectionnées par
+     * l'utilisateur
+     * @param l La liste des Ip qui sont concernées par la demande. Donc seuelemt celles cochées par l'utilisateur
+     */
+    public void tramesConcernees(List<String> l){
+        tramesConcernees = new ArrayList<Trame>();
+        for (Trame t : trames){
+            if (l.contains(t.getSourceIp())) tramesConcernees.add(t);
+            else if (l.contains(t.getDestinationIp())) tramesConcernees.add(t);
+        }
+    }
+
+    /**
+     * @param ListeIpConcernees la liste des Ip qui interragissent, donc même celles non selectionnées mais qui échangent avec les Ip selectionnées
+     * @param ListIp la liste des Ip selectionnées par l'utilisateur
+     * @return un tableau dans avec les correspondances entre la colonne de l'ip dans l'affichage et les trames (pour avoir les x pour les flèches)
+     * Attention, le résultat dépend des Ip concernées par la demande 
+     */
+    public int[][] sourceDest(List<String> ListeIpConcernees, List<String> ListIp){
+        if (tramesConcernees == null) tramesConcernees(ListIp);
+        int[][] res = new int[tramesConcernees.size()][2];
+        for (int i = 0; i < tramesConcernees.size(); i++){
+            res[i][0] = tramesConcernees.get(i).indiceSource(ListeIpConcernees);
+            res[i][1] = tramesConcernees.get(i).indiceDestination(ListeIpConcernees);
+        }
+        return res;
+    }
+
+
+    /**
      * @param i l'indice de la trame souhaitée
      * @return le toString de la trame à l'indice i
      */
     public String DataTrameI(int i){
-        return trames.get(i).toString();
+        return tramesConcernees.get(i).toString();
     }
 
+    /**
+     * @param i l'indice de la trame souhaitée
+     * @return le port source de la trame à l'indice i
+     */
     public int getSourcePortI(int i){
-        return trames.get(i).getSourcePort();
+        return tramesConcernees.get(i).getSourcePort();
     }
 
+     /**
+     * @param i l'indice de la trame souhaitée
+     * @return le port destination de la trame à l'indice i
+     */
     public int getDestinationPortI(int i){
-        return  trames.get(i).getDestinationPort();
+        return  tramesConcernees.get(i).getDestinationPort();
     }
 
     /**
@@ -120,12 +146,29 @@ public class Analyseur {
         return res;
     }
 
+    /**
+     * @param s Une Ip dont on veut connaître les correspondants
+     * @return une liste d'Ip avec qui correspond l'Ip demandée (qui lui envoie des trames ou qui en reçoit d'elle)
+     */
     public List<String> interragitAvec(String s){
         List<String> res = new ArrayList<String>();
+        String source;
+        String dest;
         for (Trame t : trames){
-            if (t.getSourceIp().equals(s)) res.add(t.getDestinationIp());
-            if (t.getDestinationIp().equals(s)) res.add(t.getSourceIp());
+            source = t.getSourceIp();
+            dest = t.getDestinationIp();
+            if (source.equals(s)) res.add(t.getDestinationIp());
+            if (dest.equals(s)) res.add(t.getSourceIp());
         }
         return res;
+    }
+
+    /**
+     * @param l La liste des Ip demandées par l'utilisateur
+     * @return le nombre de trames qu'ont échangées les Ip selectionnées par l'utilisateur
+     */
+    public int nbTramesConcernee(List<String> l){
+        tramesConcernees(l);
+        return tramesConcernees.size();
     }
 }

@@ -9,6 +9,7 @@ import javax.swing.*;
 import javax.swing.border.Border;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 public class TestGraphique {
@@ -40,27 +41,42 @@ public class TestGraphique {
         }
 
         JButton btn1 = new JButton("Soumettre");
+
         checkPanel.add(btn1);
+        checkPanel.add(new JLabel("Attention, le traitement est long. Patientez quelques secondes après avoir pressé le bouton Soumettre"));
+        checkPanel.add(new JLabel("Veillez à bien selectionner au moins une Ip, un écran blanc n'est pas très passionant"));
+
         fenetre.add(checkPanel);
 
         //update de la fenetre quand on clique sur le bouton
         btn1.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
+                //récupération des Ip sélectionnées et retirer de la liste des Ip celles qui ne le sont pas
                 for (JCheckBox c : listCheck){
                     if (!c.isSelected()){
-                        ListIp.remove(c.getText());
+                        String text = c.getText();
+                        System.out.println(text);
+                        ListIp.remove(text);
                     }
                 }
+
+                //Récupérer les Ip avec lesquelles interragissent celles selectionnées (pour un affichage au top)
+                //Utilisation d'un set pour éliminer les doublons
+                HashSet<String> temp = new HashSet<String>(); 
                 for (String s : ListIp){
+                    System.out.println("s: " + s);
                     for (String s1 : a.interragitAvec(s)){
                         if (!ListIp.contains(s1)){
-                            // ListIp.add(s1);
-                            System.out.println(s1);
+                            temp.add(s1);
                         }
                     }
                 }
-                for (String s : ListIp){System.out.println(s);}
+                //ListIpConcernees contient toutes les Ip dont on devra afficher une colonne (celles qui nous interressent + celles avec qui elles interragissent)
+                ArrayList<String> ListeIpConcernees = new ArrayList<String>(ListIp);
+                ListeIpConcernees.addAll(temp);
+
+                //Après le traitement des données fournies par l'utilisateur, on retire le sondage et on va afficher ce qu'il demande
                 fenetre.remove(checkPanel);
                 //Panneau avec toutes les légendes et le graphique
                 JPanel total = new JPanel();
@@ -76,14 +92,14 @@ public class TestGraphique {
 
 
                 //Le graphique
-                Graph graph = new Graph(ListIp.size(), a.nbTrames(), a.sourceDest(), a);
+                Graph graph = new Graph(ListeIpConcernees.size(), a.nbTramesConcernee(ListIp), a.sourceDest(ListeIpConcernees, ListIp), a);
                 
                 //La légende
                 JPanel legende = new JPanel();
                 legende.setLayout(new BoxLayout(legende, BoxLayout.X_AXIS));
                 legende.setAlignmentX(Component.LEFT_ALIGNMENT);
                 legende.setSize(graph.getWidth(), 50);
-                for (String s : ListIp) {
+                for (String s : ListeIpConcernees) {
                     JLabel txt = new JLabel(s);
                     JLabel space = new JLabel("                          ");
                     legende.add(space);
@@ -112,7 +128,7 @@ public class TestGraphique {
                 JLabel space3 = new JLabel(" ");
                 descrTrames.add(space3);
                 
-                for (int i = 0; i < a.nbTrames(); i ++){            
+                for (int i = 0; i < a.nbTramesConcernee(ListIp); i ++){            
                     JLabel txt = new JLabel(a.DataTrameI(i));
                     descrTrames.add(txt);
                     JLabel space4 = new JLabel(" ");
@@ -145,6 +161,7 @@ public class TestGraphique {
                 }catch (Exception ex) {
                     System.out.println(ex.getMessage());
                 }
+                //Affichage off puis on pour refresh
                 fenetre.setVisible(false);
                 fenetre.setVisible(true);            
             }
