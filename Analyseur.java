@@ -11,6 +11,7 @@ public class Analyseur {
     private List<Trame> trames; //une liste de Trame extraite du fichier
     private List<Trame> tramesConcernees; //une liste de trames après un filtre appliqué par l'utilisateur
 
+
     public Analyseur(String path){
         fichier = new File(path);  
         trames = new ArrayList<Trame>();
@@ -26,8 +27,9 @@ public class Analyseur {
      */
     public void découpage(){
         Scanner scan;
-        //Le pattern p correspond à une ligne sur laquelle il y a 4 caractères qui correspondent à l'indice de la ligne, puis entre 1 et 3 espaces, puis entre 1 et n couples de caractères séparés par un espace, et enfin m caractères ne correspondant pas à des octets
-        //Donc chaque ligne contient au moins 1 octet pour fonctionner
+        //Le pattern p correspond à une ligne sur laquelle il y a 4 caractères qui correspondent à l'indice
+        // de la ligne, puis entre 1 et 3 espaces, puis entre 1 et n couples de caractères séparés par un espace,
+        // et enfin m caractères ne correspondant pas à des octets. Donc chaque ligne contient au moins 1 octet pour fonctionner
         Pattern p = Pattern.compile("^([\\w]{4})\s{1,3}(([\\w]{2}\s)*([\\w]{2})).*$");
 
         try {
@@ -44,17 +46,19 @@ public class Analyseur {
             line = scan.nextLine(); //On récupère la prochaine ligne
             Matcher m = p.matcher(line);
             if (m.find()){ //Si la ligne correspond au motif attendu
-                 //On crée une nouvelle trame si on arrive sur une ligne qui commence par 0000 (donc nouvelle trame) et que trame n'est pas vide
+                //On crée une nouvelle trame si on arrive sur une ligne qui commence par 0000 (donc nouvelle trame) et que trame n'est pas vide
                 if (!(trame.equals("")) && (m.group(1).compareTo("0000") == 0)){
                     trames.add(new Trame(trame));
                     trame = ""; //On remet trame à la chaine vide pour la trame suivante
                 }
                 //On ajoute à la string trame la suite des octets
-                trame += " " + m.group(2);
+                trame += " " + m.group(2); //m.group() permet de séléctionner une partie de la regex spécifiée avec les parenthèses
             }
             
         }
-        if (trame != "") trames.add(new Trame(trame)); //A la fin de la boucle, trame n'est pas vide (normalement) car on n'a pas ajouté la dernière trame, n'étant pas tombés sur un nouveau début, donc on l'ajoute
+        //A la fin de la boucle, trame n'est pas vide (normalement) car on n'a pas ajouté la dernière trame,
+        // n'étant pas tombés sur un nouveau début, donc on l'ajoute
+        if (trame != "") trames.add(new Trame(trame)); 
         scan.close();
     }
 
@@ -62,10 +66,10 @@ public class Analyseur {
      * Affiche le toString de chaque trame
      */
     public void afficherTrames(){
-        String res = "";
+        String res = ""; //Possibilité d'utiliser un string Builder, légère optimisation 
         int i = 0;
         for (Trame t : trames){
-            res += i + " : " + t.toString() + "\n";
+            res += i + " : \n" + t.toString() + "\n\n";
             i ++;
         }
         System.out.println(res);

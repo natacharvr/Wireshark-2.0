@@ -115,18 +115,14 @@ public class TestGraphique {
                 graphique.add(graph);
                 graphique.setPreferredSize(graph.getPreferredSize());        
                 
-                //Panneau des descriptions de trames
+                 //Panneau des descriptions de trames
                 JPanel descrTrames = new JPanel();
                 descrTrames.setLayout(new BoxLayout(descrTrames, BoxLayout.Y_AXIS));
                 descrTrames.setAlignmentY(JPanel.TOP_ALIGNMENT);
-                JLabel space = new JLabel(" ");
-                descrTrames.add(space);
-                JLabel space1 = new JLabel(" ");
-                descrTrames.add(space1);
-                JLabel space2 = new JLabel(" ");
-                descrTrames.add(space2);
-                JLabel space3 = new JLabel(" ");
-                descrTrames.add(space3);
+                //Sauts de lignes pour aligner avec les flèches
+                descrTrames.add(new JLabel(" "));
+                descrTrames.add(new JLabel(" "));
+                descrTrames.add(new JLabel(" "));
                 
                 for (int i = 0; i < a.nbTramesConcernee(ListIp); i ++){            
                     JLabel txt = new JLabel(a.DataTrameI(i));

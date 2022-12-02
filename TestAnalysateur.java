@@ -5,7 +5,6 @@ public class TestAnalysateur {
     public static void main(String[] args) {
         Analyseur a = new Analyseur("trameTest.txt"); //Se charge de tous les découpages
         a.afficherTrames(); //Affiche les toString de toutes les trames, donc tous les champs récupérés
-        List<String> ListIp = a.diffIp(); //Sert pour l'affichage graphique, voir TestGraphqiue.java
-    
+        List<String> ListIp = a.diffIp(); //Sert pour l'affichage graphique, voir TestGraphqiue.java    
     }
 }
