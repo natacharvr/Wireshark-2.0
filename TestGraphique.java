@@ -144,6 +144,7 @@ public class TestGraphique {
                 total.add(descrTrames);
                 
                 JScrollPane scrollGraphLegende = new JScrollPane(total);
+                scrollGraphLegende.getVerticalScrollBar().setUnitIncrement(16);
                 fenetre.add(scrollGraphLegende);
             
                 //Affichage des éléments :
