@@ -3,42 +3,89 @@ import java.awt.*;
 
 import java.awt.Graphics;
 
+@SuppressWarnings("serial")
 public class Graph extends JPanel {
-    int nbLignes;
-    int nbTrames;
-    int [][] sourceDest;
+    //Classe qui permet de dessiner le graphique de l'interface
+    int nbLignes; //Le nombre d'Ip différentes 
+    int nbTrames; //Le nombre de trames à dessiner
+    int [][] sourceDest; //Un tableau qui contient des couples indice Ip source, indice Ip destination (donc compris entre 0 et nbTrames)
+    Analyseur a;
+    public static final int deltaX = 150; //L'espace entre deux lignes verticales
+    public static final int deltaY = 48; //L'escapce entre deux lignes horizontales
 
-    public Graph(int nbLignes, int nbTrames, int[][] sourceDest) {
+    public Graph(int nbLignes, int nbTrames, int[][] sourceDest, Analyseur a) {
+        super();
         this.nbLignes = nbLignes;
         this.nbTrames = nbTrames;
         this.sourceDest = sourceDest;
+        this.a = a;
     }
 
-    public void drawArrow(Graphics g, int x1, int y1, int x2, int y2){
+    /* 
+     * Permet d'obtenir la vraie taille du panel pour l'affichage (autrement problèmes avec la scrollBar)
+     */
+    @Override
+    public Dimension getPreferredSize() {
+        if (isPreferredSizeSet()) {
+            return super.getPreferredSize();
+        }
+        return new Dimension(getWidth(), getHeight());
+    }
+
+    @Override
+    public int getHeight(){
+        return (nbTrames + 2) * deltaY; 
+    }
+
+    @Override
+    public int getWidth(){
+        return (nbLignes + 1) * (deltaX); 
+    }
+
+    /**
+     * @param g L'outil graphique
+     * @param x1 l'abscisse de l'origine de la flèche
+     * @param y1 L'ordonnée de l'origine de la flèche
+     * @param x2 L'abscisse de la destination de la flèche
+     * @param y2 L'ordonnée de la destination de la flèche
+     */
+    public void drawArrow(Graphics g, int x1, int y1, int x2, int y2, int sourcePort, int destinationPort){
+    	Color initialColor = g.getColor();
         Polygon triangle;
+        String sp = "port " + sourcePort;
+        String dp = "port " + destinationPort;
         if (x1 < x2){
+        	g.setColor(initialColor);
             int[] xpoints = {x2 - 6, x2 - 6, x2};
             int[] ypoints = {y2 - 4, y2 + 4, y2};
             triangle = new Polygon(xpoints, ypoints, 3);
+            g.setColor(Color.blue);
+            g.drawString(sp, x1 - 54 , y1 + 5);
+            g.setColor(Color.red);
+            g.drawString(dp, x2 + 8, y2 + 5);
 
         }
         else {
+        	g.setColor(initialColor);
             int[] xpoints = {x2 + 6, x2 + 6, x2};
             int[] ypoints = {y2 - 4, y2 + 4, y2};
             triangle = new Polygon(xpoints, ypoints, 3);
-
+            g.setColor(Color.blue);
+            g.drawString(sp, x1 + 8, y1 + 5);
+            g.setColor(Color.red);
+            g.drawString(dp, x2 - 54, y2 + 5);
         }
+        g.setColor(initialColor);
         
         g.drawLine(x1, y1, x2, y2);
         g.drawPolygon(triangle);
         g.fillPolygon(triangle);
     }
 
+    /* (non-Javadoc)
+     * Dessine le graphqiue, avec nbTrames flèches espacées de deltaY, dont les coordonnées en x sont données grâce au tableau sourceDest
+     */
     public void paint(Graphics g){
-        int tailleX = getWidth();
-        int tailleY = getHeight();
-        int deltaX = tailleX / (nbLignes+1);
-        int deltaY = tailleY / (nbTrames+1);
         int x = 0;
         int y = 0;
         int x1 = 0;
@@ -53,21 +100,8 @@ public class Graph extends JPanel {
             y = (i+1) * deltaY;
             x1 = (sourceDest[i][0] + 1) * deltaX;
             x2 = (sourceDest[i][1] + 1) * deltaX;
-            drawArrow(g, x1, y, x2, y);
+            drawArrow(g, x1, y, x2, y, a.getSourcePortI(i), a.getDestinationPortI(i));
         }
     }
-
-//      public static void main(String[] args) {
-//         JFrame frame = new JFrame("Wireshark 2.0");
-//         frame.setSize(500,500);
-//         Graph g = new Graph(5, 10);
-//         frame.setLayout(new GridLayout(2, 1));
-
-//         frame.getContentPane().add(g);
-
-//         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//         frame.setVisible(true);
-
-//     }
     
 }
