@@ -39,18 +39,19 @@ public class TestGraphique {
         //Le graphique
         Graph graph = new Graph(ListIp.size(), a.nbTrames(), a.sourceDest(), a);
         
-        //La légende
+        //La légende (encadré en haut avec les IP)
         JPanel legende = new JPanel();
         legende.setLayout(new BoxLayout(legende, BoxLayout.X_AXIS));
         legende.setAlignmentX(Component.LEFT_ALIGNMENT);
         legende.setSize(graph.getWidth(), 50);
+        legende.add(new JLabel("           ")); //Décalage initial pour centrer l'IP avec la ligne verticale
         for (String s : ListIp) {
             JLabel txt = new JLabel(s);
-            JLabel space = new JLabel("                          ");
+            JLabel space = new JLabel("               ");
             legende.add(space);
             legende.add(txt);
         } 
-        JLabel spac = new JLabel("                                 ");
+        JLabel spac = new JLabel("                                 "); //Décalage pour que la bordure droite s'aligne avec l'encadré
         legende.add(spac);
         legende.setBorder(blackline);
 
@@ -64,23 +65,16 @@ public class TestGraphique {
         JPanel descrTrames = new JPanel();
         descrTrames.setLayout(new BoxLayout(descrTrames, BoxLayout.Y_AXIS));
         descrTrames.setAlignmentY(JPanel.TOP_ALIGNMENT);
-        JLabel space = new JLabel(" ");
-        descrTrames.add(space);
-        JLabel space1 = new JLabel(" ");
-        descrTrames.add(space1);
-        JLabel space2 = new JLabel(" ");
-        descrTrames.add(space2);
-        JLabel space3 = new JLabel(" ");
-        descrTrames.add(space3);
+        //Sauts de lignes pour aligner avec les flèches
+        descrTrames.add(new JLabel(" "));
+        descrTrames.add(new JLabel(" "));
+        descrTrames.add(new JLabel(" "));
         
         for (int i = 0; i < a.nbTrames(); i ++){            
             JLabel txt = new JLabel(a.DataTrameI(i));
             descrTrames.add(txt);
-            JLabel space4 = new JLabel(" ");
-            descrTrames.add(space4);
-            JLabel space5 = new JLabel(" ");
-            descrTrames.add(space5);
-            
+            descrTrames.add(new JLabel(" "));
+            descrTrames.add(new JLabel(" "));
         }
         
         //ajout au total
