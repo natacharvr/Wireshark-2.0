@@ -23,6 +23,7 @@ public class Trame implements CoucheLiaison {
         res += "Adresse Mac from : <u>" + sourceMac + "</u>";
         res += " to : <u>" + destinationMac + "</u> ";
         res += "type : " + type + " ";
+        if (reseau != null)
         res += reseau.toString();
         return res;
     }
@@ -47,8 +48,9 @@ public class Trame implements CoucheLiaison {
 
     /**
      * Extrait la sous chaine contenant le type
+     * @throws PasIPv4Exception
      */
-    private void type(){
+    private void type() {
         this.type = contenu.substring(37,42);
         type = type.replace("\s", "");
         
@@ -59,6 +61,8 @@ public class Trame implements CoucheLiaison {
                 reseau = new Ipv4(this.contenu.substring(43, contenu.length() -1));
                 type = "IPv4 ("+ type + ")";
                 break;
+            default :
+                reseau = null;
         }
     }
 
@@ -124,6 +128,10 @@ public class Trame implements CoucheLiaison {
             return ((Ipv4)reseau).getDestinationPort();
         }
         return -1;
+    }
+
+    public boolean isIpv4(){
+        return (reseau != null);
     }
 
 }

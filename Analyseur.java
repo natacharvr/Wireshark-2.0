@@ -138,13 +138,15 @@ public class Analyseur {
         String ipS;
         String ipD;
         for (Trame t : trames){
-            ipS = t.getSourceIp();
-            if (!res.contains(ipS)){
-                res.add(ipS);
-            }
-            ipD = t.getDestinationIp();
-            if (!res.contains(ipD)){
-                res.add(ipD);
+            if (t.isIpv4()){
+                ipS = t.getSourceIp();
+                if (!res.contains(ipS)){
+                    res.add(ipS);
+                }
+                ipD = t.getDestinationIp();
+                if (!res.contains(ipD)){
+                    res.add(ipD);
+                }
             }
         }
         return res;

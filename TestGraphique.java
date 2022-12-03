@@ -15,7 +15,7 @@ import java.util.List;
 public class TestGraphique {
     public static void main(String[] args) {
         //Les datas des trames
-        Analyseur a = new Analyseur("test.txt");
+        Analyseur a = new Analyseur("tp1.txt");
         List<String> ListIp = a.diffIp();
 
         //Outil pour afficher les borders des panels
