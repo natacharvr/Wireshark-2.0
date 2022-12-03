@@ -20,19 +20,9 @@ public class Trame implements CoucheLiaison {
     @Override
     public String toString(){
         String res = "";
-        res += "contenu: " + contenu + "\n";
-        res += "sourceMac: " + sourceMac + "\n";
-        res += "destinationMac: " + destinationMac + "\n";
-        res += "type: " + type + "\n";
-        res += reseau.toString();
-        return res;
-    }
-    
-    public String getData(){
-        String res = "";
-        res += "sourceMac: " + sourceMac + "\n";
-        res += "destinationMac: " + destinationMac + "\n";
-        res += "type: " + type + "\n";
+        res += "Adresse Mac from : <u>" + sourceMac + "</u>";
+        res += " to : <u>" + destinationMac + "</u> ";
+        res += "type : " + type + " ";
         res += reseau.toString();
         return res;
     }
