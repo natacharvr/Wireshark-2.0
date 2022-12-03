@@ -22,7 +22,7 @@ public class Tcp implements CoucheTransport {
     	//Retire les espaces de la trame pour pouvoir l'analyser plus facilement
         contenu = s.replace(" ", "");
         sourcePort = extraction(0,4,16);
-        destinationPort = extraction(4,8,16);
+        destinationPort = extraction(4,8    ,16);
         sequenceNumber = Long.parseLong(contenu.substring(8,16),16);
         acknowledgmentNumber = Long.parseLong(contenu.substring(16,24),16);
         THL = extraction(24,25,16);
@@ -30,11 +30,12 @@ public class Tcp implements CoucheTransport {
         flagACK = extraction(26,27) % 2; //%2 pour extraire le bit de poid faible de l'octet
         flagPSH = extraction(27,28) / 8;
         flagRST = (extraction(27,28) / 4) % 2; //On retire 2 bit à droite et un bit à gauche
-        flagSYN = (extraction(27,28) / 2) % 8;
-        flagFIN = extraction(27,28) %16;
+        flagSYN = (extraction(27,28) / 2) % 2;
+        flagFIN = extraction(27,28) % 2;
         window = extraction(28,32,16);
         checksum = extraction(32,36,16);
-        urgentPointer = extraction(36,40,16);
+        urgentPointer = extraction(36,39,16);
+        if (contenu.length() > 39)
         options = contenu.substring(40);
     }
     
@@ -42,7 +43,7 @@ public class Tcp implements CoucheTransport {
      * Pour limiter la répetition de la ligne d'extraction complète
      */
     private int extraction(int debut, int fin) {
-    	return Integer.parseInt(contenu.substring(debut,fin),10);
+    	return Integer.parseInt(contenu.substring(debut,fin),16);
     }
     
     /*

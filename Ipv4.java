@@ -4,7 +4,7 @@ import java.util.regex.Pattern;
 public class Ipv4 implements CoucheReseau {
     private int version; //La chaine de caractère extraite de contenu qui contient la version
     private int headerLength; //L'entier extrait de contenu qui correspond à la taille de l'entête/4
-    private int size; // La taille de l'entête ipv4
+    private int size; // La taille de la trame
     private int identifier;
     private int flagDF; //Don't fragment
     private int flagMF; //More fragment
@@ -26,7 +26,6 @@ public class Ipv4 implements CoucheReseau {
         destinationIp();
         protocol();
         TTL();
-        transport = new Tcp(contenu.replace(" ", "").substring(size-1));
     }
 
     /**
@@ -77,8 +76,9 @@ public class Ipv4 implements CoucheReseau {
         //En fonction du protocol on initialise les attributs correspondants
         switch(protocol){
         	case "06" : //Si le type est 06, c'est une trame TCP
-            //tcp = new Tcp(s.substring(headerLength * 3 , s.length() -1));
             protocol = "TCP ("+ protocol + ")";
+            transport = new Tcp(contenu.substring(headerLength * 3));
+            System.out.println(headerLength * 3);
             break;
         }
     }
@@ -128,6 +128,7 @@ public class Ipv4 implements CoucheReseau {
         res += "identifier: " + identifier + "\n";
         res += "protocol: " + protocol + "\n";
         res += "TTL: " + TTL + "\n";
+        if (transport != null)
         res += transport.toString();
         return res;
     }

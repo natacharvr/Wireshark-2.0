@@ -20,7 +20,6 @@ public class Trame implements CoucheLiaison {
     @Override
     public String toString(){
         String res = "";
-        res += "contenu: " + contenu + "\n";
         res += "sourceMac: " + sourceMac + "\n";
         res += "destinationMac: " + destinationMac + "\n";
         res += "type: " + type + "\n";

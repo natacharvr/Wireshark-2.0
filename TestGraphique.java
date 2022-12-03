@@ -56,7 +56,7 @@ public class TestGraphique {
                 for (JCheckBox c : listCheck){
                     if (!c.isSelected()){
                         String text = c.getText();
-                        System.out.println(text);
+                        // System.out.println(text);
                         ListIp.remove(text);
                     }
                 }
@@ -65,7 +65,7 @@ public class TestGraphique {
                 //Utilisation d'un set pour éliminer les doublons
                 HashSet<String> temp = new HashSet<String>(); 
                 for (String s : ListIp){
-                    System.out.println("s: " + s);
+                    // System.out.println("s: " + s);
                     for (String s1 : a.interragitAvec(s)){
                         if (!ListIp.contains(s1)){
                             temp.add(s1);
@@ -141,6 +141,8 @@ public class TestGraphique {
                 
                 JScrollPane scrollGraphLegende = new JScrollPane(total);
                 scrollGraphLegende.getVerticalScrollBar().setUnitIncrement(16);
+                scrollGraphLegende.getHorizontalScrollBar().setUnitIncrement(16);
+
                 fenetre.add(scrollGraphLegende);
             
                 //Affichage des éléments :
