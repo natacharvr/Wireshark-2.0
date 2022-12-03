@@ -2,19 +2,19 @@ package testsAnnexes;
 import javax.swing.*;
 import java.awt.GridLayout;
 public class Interface{
-    //Classe inutile, juste des expérimentations avec l'interface de java swing
-    //Voir ici pour les différents composants possibles
+    //Classe inutile, juste des experimentations avec l'interface de java swing
+    //Voir ici pour les differents composants possibles
    public static void main(String[] args) {
-        // Définissez le frame
+        // Definissez le frame
         JFrame frame = new JFrame("Hello World");
     
         JLabel label = new JLabel("Je suis un JLabel", JLabel.CENTER);
         //frame.add(label);
     
-        // Définissez le panel
+        // Definissez le panel
         JPanel panel = new JPanel();
         JPanel panel1 = new JPanel();
-        // Définir les boutons
+        // Definir les boutons
         JButton btn1 = new JButton("Bouton 1");
         JButton btn2 = new JButton("Bouton 2");      
         // Ajouter les boutons au frame
@@ -22,11 +22,11 @@ public class Interface{
         panel.add(btn2);
 
         String[] langs = {"PHP", "Java", "Python", "C++", "Ruby"};
-        // Créer une liste déroulante
+        // Creer une liste deroulante
         JComboBox<String> cb = new JComboBox<String>(langs);
         panel.add(cb);
 
-         // Créer des cases à cocher    
+         // Creer des cases à cocher    
          JCheckBox checkBox1 = new JCheckBox("Java", true);
          JCheckBox checkBox2 = new JCheckBox("PHP");
          JCheckBox checkBox3 = new JCheckBox("Python", true);
@@ -46,13 +46,13 @@ public class Interface{
          panel.add(checkBox1); 
          panel.add(checkBox2);
          panel.add(checkBox3);
-         // Définir le menu principal
+         // Definir le menu principal
         JMenuBar menu = new JMenuBar();
         JMenu file = new JMenu("Fichier");
         JMenu edit = new JMenu("Edition");
         JMenu help = new JMenu("Aide");
          
-        // Définir le sous-menu pour Fichier
+        // Definir le sous-menu pour Fichier
         JMenuItem newf = new JMenuItem("Nouveau");
         JMenuItem quit = new JMenuItem("Ouvrir");
         JMenuItem save = new JMenuItem("Enregistrer");
@@ -94,7 +94,7 @@ public class Interface{
                 {"05", "Bob", "30", "Nice"}
         };
         
-        // Créer le JTable
+        // Creer le JTable
         JTable table = new JTable(data, column);
         JScrollPane scroll = new JScrollPane(table); 
         panel1.add(scroll);

@@ -7,7 +7,7 @@ public class Trame implements CoucheLiaison {
     private String type; //La chaine de caractère extraite de contenu qui contient le type de trame
 
     //attribut ipv4
-    private CoucheReseau reseau; //Un attribut de type Ipv4, qui contient tous les attributs liés si la trame est de type ipv4
+    private CoucheReseau reseau; //Un attribut de type Ipv4, qui contient tous les attributs lies si la trame est de type ipv4
   
 
     public Trame(String contenu){
@@ -87,8 +87,8 @@ public class Trame implements CoucheLiaison {
     }
 
     /**
-     * Utile pour créer le tableau qui permet de dessiner les flèches du graphqiue
-     * @param ipList Une liste de Chaine de caractères contenant toutes les adresses Ip qui ont échangé des trames dans le fichier
+     * Utile pour creer le tableau qui permet de dessiner les flèches du graphqiue
+     * @param ipList Une liste de Chaine de caractères contenant toutes les adresses Ip qui ont echange des trames dans le fichier
      * @return l'indice auquel correspond l'adresse Ip source de cette trame ou -1 si elle est absente de la liste
      */
     public int indiceSource(List<String> ipList){
@@ -102,8 +102,8 @@ public class Trame implements CoucheLiaison {
     }
 
     /**
-     * Utile pour créer le tableau qui permet de dessiner les flèches du graphqiue
-     * @param ipList Une liste de Chaine de caractères contenant toutes les adresses Ip qui ont échangé des trames dans le fichier
+     * Utile pour creer le tableau qui permet de dessiner les flèches du graphqiue
+     * @param ipList Une liste de Chaine de caractères contenant toutes les adresses Ip qui ont echange des trames dans le fichier
      * @return l'indice auquel correspond l'adresse Ip destination de cette trame
      */
     public int indiceDestination(List<String> ipList){

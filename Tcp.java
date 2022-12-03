@@ -5,13 +5,13 @@ public class Tcp implements CoucheTransport {
     private long sequenceNumber;
     private long acknowledgmentNumber;
     private int THL; //Transport Header Length (x4 octets)
-    private int flagURG; //Pour les données prioritaires
+    private int flagURG; //Pour les donnees prioritaires
     private int flagACK; //Si le champ AN est valide
     private int flagPSH; //Push sans attendre le remplissage complet de la trame
-    private int flagRST; //Réinitialisation de la connexion
+    private int flagRST; //Reinitialisation de la connexion
     private int flagSYN; //Ouverture de la connexion
     private int flagFIN; //Fermeture de connexion
-    private int window; //Taille des tampons libres en réception de l'émetteur du segment
+    private int window; //Taille des tampons libres en reception de l'emetteur du segment
     private int checksum;
     private int urgentPointer;
     private String options;
@@ -40,14 +40,14 @@ public class Tcp implements CoucheTransport {
     }
     
     /*
-     * Pour limiter la répetition de la ligne d'extraction complète
+     * Pour limiter la repetition de la ligne d'extraction complète
      */
     private int extraction(int debut, int fin) {
     	return Integer.parseInt(contenu.substring(debut,fin),16);
     }
     
     /*
-     * Surcharge pour pouvoir spécifier la base
+     * Surcharge pour pouvoir specifier la base
      */
     private int extraction(int debut, int fin, int base) {
     	return Integer.parseInt(contenu.substring(debut, fin), base);

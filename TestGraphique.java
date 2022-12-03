@@ -13,9 +13,17 @@ import java.util.HashSet;
 import java.util.List;
 
 public class TestGraphique {
+    public static String nom = "trameTest";
     public static void main(String[] args) {
+        try{
+            nom = args[1];
+        }
+        catch(Exception e){
+            System.out.println("Il faut mettre en argument le nom du fichier");
+            return;
+        }
         //Les datas des trames
-        Analyseur a = new Analyseur("tp1.txt");
+        Analyseur a = new Analyseur(nom + ".txt");
         List<String> ListIp = a.diffIp();
 
         //Outil pour afficher les borders des panels
@@ -43,8 +51,8 @@ public class TestGraphique {
         JButton btn1 = new JButton("Soumettre");
 
         checkPanel.add(btn1);
-        checkPanel.add(new JLabel("Attention, le traitement est long. Patientez quelques secondes après avoir pressé le bouton Soumettre"));
-        checkPanel.add(new JLabel("Veillez à bien selectionner au moins une Ip, un écran blanc n'est pas très passionant"));
+        checkPanel.add(new JLabel("Attention, le traitement est long. Patientez quelques secondes après avoir presse le bouton Soumettre"));
+        checkPanel.add(new JLabel("Veillez à bien selectionner au moins une Ip, un ecran blanc n'est pas très passionant"));
 
         fenetre.add(checkPanel);
 
@@ -52,7 +60,7 @@ public class TestGraphique {
         btn1.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
-                //récupération des Ip sélectionnées et retirer de la liste des Ip celles qui ne le sont pas
+                //recuperation des Ip selectionnees et retirer de la liste des Ip celles qui ne le sont pas
                 for (JCheckBox c : listCheck){
                     if (!c.isSelected()){
                         String text = c.getText();
@@ -61,8 +69,8 @@ public class TestGraphique {
                     }
                 }
 
-                //Récupérer les Ip avec lesquelles interragissent celles selectionnées (pour un affichage au top)
-                //Utilisation d'un set pour éliminer les doublons
+                //Recuperer les Ip avec lesquelles interragissent celles selectionnees (pour un affichage au top)
+                //Utilisation d'un set pour eliminer les doublons
                 HashSet<String> temp = new HashSet<String>(); 
                 for (String s : ListIp){
                     // System.out.println("s: " + s);
@@ -76,16 +84,16 @@ public class TestGraphique {
                 ArrayList<String> ListeIpConcernees = new ArrayList<String>(ListIp);
                 ListeIpConcernees.addAll(temp);
 
-                //Après le traitement des données fournies par l'utilisateur, on retire le sondage et on va afficher ce qu'il demande
+                //Après le traitement des donnees fournies par l'utilisateur, on retire le sondage et on va afficher ce qu'il demande
                 fenetre.remove(checkPanel);
 
-                //Panneau avec toutes les légendes et le graphique
+                //Panneau avec toutes les legendes et le graphique
                 JPanel total = new JPanel();
                 total.setLayout(new BoxLayout(total, BoxLayout.X_AXIS));
                 total.setAlignmentY(JPanel.TOP_ALIGNMENT);
 
 
-                //Panneau du graphique et de sa légende
+                //Panneau du graphique et de sa legende
                 JPanel graphique = new JPanel();
                 graphique.setLayout(new BoxLayout(graphique, BoxLayout.Y_AXIS));
                 graphique.setAlignmentY(JPanel.TOP_ALIGNMENT);
@@ -95,16 +103,15 @@ public class TestGraphique {
                 //Le graphique
                 Graph graph = new Graph(ListeIpConcernees.size(), a.nbTramesConcernee(ListIp), a.sourceDest(ListeIpConcernees, ListIp), a);
                 
-                //La légende
+                //La legende
                 JPanel legende = new JPanel();
                 legende.setLayout(new BoxLayout(legende, BoxLayout.X_AXIS));
                 legende.setAlignmentX(Component.LEFT_ALIGNMENT);
                 legende.setSize(graph.getWidth(), 50);
+                legende.add(new JLabel("                                     "));
                 for (String s : ListeIpConcernees) {
-                    JLabel txt = new JLabel(s);
-                    JLabel space = new JLabel("                          ");
-                    legende.add(space);
-                    legende.add(txt);
+                    legende.add(new JLabel(s));
+                    legende.add(new JLabel("                          "));
                 } 
                 JLabel spac = new JLabel("                                 ");
                 legende.add(spac);
@@ -146,7 +153,7 @@ public class TestGraphique {
 
                 fenetre.add(scrollGraphLegende);
             
-                //Affichage des éléments :
+                //Affichage des elements :
                 fenetre.setVisible(true);
                 
 
@@ -157,7 +164,7 @@ public class TestGraphique {
                 total.paint(g);
                 g.dispose();
                 try{
-                    ImageIO.write(image,"png",new File("test.png"));
+                    ImageIO.write(image,"png",new File(nom + ".png"));
                 }catch (Exception ex) {
                     System.out.println(ex.getMessage());
                 }
