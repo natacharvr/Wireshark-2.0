@@ -78,6 +78,7 @@ public class TestGraphique {
 
                 //Après le traitement des données fournies par l'utilisateur, on retire le sondage et on va afficher ce qu'il demande
                 fenetre.remove(checkPanel);
+
                 //Panneau avec toutes les légendes et le graphique
                 JPanel total = new JPanel();
                 total.setLayout(new BoxLayout(total, BoxLayout.X_AXIS));
@@ -115,7 +116,7 @@ public class TestGraphique {
                 graphique.add(graph);
                 graphique.setPreferredSize(graph.getPreferredSize());        
                 
-                 //Panneau des descriptions de trames
+                //Panneau des descriptions de trames
                 JPanel descrTrames = new JPanel();
                 descrTrames.setLayout(new BoxLayout(descrTrames, BoxLayout.Y_AXIS));
                 descrTrames.setAlignmentY(JPanel.TOP_ALIGNMENT);
@@ -125,7 +126,7 @@ public class TestGraphique {
                 descrTrames.add(new JLabel(" "));
                 
                 for (int i = 0; i < a.nbTramesConcernee(ListIp); i ++){            
-                    JLabel txt = new JLabel(a.DataTrameI(i));
+                    JLabel txt = new JLabel("<html>Trame n°" + i + " " + a.DataTrameI(i) + "</html>");
                     descrTrames.add(txt);
                     JLabel space4 = new JLabel(" ");
                     descrTrames.add(space4);

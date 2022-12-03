@@ -6,8 +6,8 @@ public class Ipv4 implements CoucheReseau {
     private int headerLength; //L'entier extrait de contenu qui correspond à la taille de l'entête/4
     private int size; // La taille de la trame
     private int identifier;
-    private int flagDF; //Don't fragment
-    private int flagMF; //More fragment
+    // private int flagDF; //Don't fragment
+    // private int flagMF; //More fragment
     private int TTL; //Time to live
     private String protocol;
     private String sourceIp;
@@ -78,7 +78,6 @@ public class Ipv4 implements CoucheReseau {
         	case "06" : //Si le type est 06, c'est une trame TCP
             protocol = "TCP ("+ protocol + ")";
             transport = new Tcp(contenu.substring(headerLength * 3));
-            System.out.println(headerLength * 3);
             break;
         }
     }
@@ -120,14 +119,15 @@ public class Ipv4 implements CoucheReseau {
     }
 
     public String toString(){
-        String res = "sourceIp: " + sourceIp + "\n";
-        res += "destinationIp: " + destinationIp + "\n";
-        res += "version: " + version + "\n";
-        res += "headerLength: " + headerLength + "\n";
-        res += "size: " + size + "\n";
-        res += "identifier: " + identifier + "\n";
-        res += "protocol: " + protocol + "\n";
-        res += "TTL: " + TTL + "\n";
+        String res = "";
+        // res += "<font color='blue'>Adresse Ip From : </font>" + sourceIp + " ";
+        // res += "<font color='blue'>to: </font>" + destinationIp + " ";
+        // res += "version: " + version + " ";
+        // res += "headerLength: " + headerLength + "\n";
+        // res += "size: " + size + "\n";
+        // res += "identifier: " + identifier + "\n";
+        res += "protocol: <font color='blue'>" + protocol + " </font>";
+        // res += "TTL: " + TTL + "\n";
         if (transport != null)
         res += transport.toString();
         return res;
