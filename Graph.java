@@ -3,7 +3,6 @@ import java.awt.*;
 
 import java.awt.Graphics;
 
-@SuppressWarnings("serial")
 public class Graph extends JPanel {
     //Classe qui permet de dessiner le graphique de l'interface
     int nbLignes; //Le nombre d'Ip differentes 
@@ -59,10 +58,12 @@ public class Graph extends JPanel {
             int[] xpoints = {x2 - 6, x2 - 6, x2};
             int[] ypoints = {y2 - 4, y2 + 4, y2};
             triangle = new Polygon(xpoints, ypoints, 3);
-            g.setColor(Color.blue);
-            g.drawString(sp, x1 - 54 , y1 + 5);
-            g.setColor(Color.red);
-            g.drawString(dp, x2 + 8, y2 + 5);
+            if (sourcePort != -1){
+                g.setColor(Color.blue);
+                g.drawString(sp, x1 - 54 , y1 + 5);
+                g.setColor(Color.red);
+                g.drawString(dp, x2 + 8, y2 + 5);
+            }
 
         }
         else {
@@ -70,10 +71,12 @@ public class Graph extends JPanel {
             int[] xpoints = {x2 + 6, x2 + 6, x2};
             int[] ypoints = {y2 - 4, y2 + 4, y2};
             triangle = new Polygon(xpoints, ypoints, 3);
-            g.setColor(Color.blue);
-            g.drawString(sp, x1 + 8, y1 + 5);
-            g.setColor(Color.red);
-            g.drawString(dp, x2 - 54, y2 + 5);
+            if (sourcePort != -1){
+                g.setColor(Color.blue);
+                g.drawString(sp, x1 + 8, y1 + 5);
+                g.setColor(Color.red);
+                g.drawString(dp, x2 - 54, y2 + 5);
+            }
         }
         g.setColor(initialColor);
         

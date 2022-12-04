@@ -30,7 +30,8 @@ public class Affichage {
         JPanel recup = new JPanel();
         recup.setLayout(new BoxLayout(recup, BoxLayout.Y_AXIS));
         recup.add(new JLabel("Entrez le chemin absolu du fichier contenant les traces"));
-        JTextArea nomFichier = new JTextArea(".txt");
+        JTextField nomFichier = new JTextField(".txt", 100);
+        nomFichier.setMaximumSize(new Dimension(fenetre.getWidth(), 20));
         nomFichier.setSize(100, 10);
         recup.add(nomFichier);
         JButton envoyerNom = new JButton("Soumettre");
@@ -114,7 +115,6 @@ public class Affichage {
         //Utilisation d'un set pour eliminer les doublons
         HashSet<String> temp = new HashSet<String>(); 
         for (String s : ListIp){
-            // System.out.println("s: " + s);
             for (String s1 : a.interragitAvec(s)){
                 if (!ListIp.contains(s1)){
                     temp.add(s1);
@@ -133,8 +133,14 @@ public class Affichage {
         Graphics g = image.createGraphics();
         total.paint(g);
         g.dispose();
+
+        //Récuperation du nom du fichier sans le path et sans le .txt
+        String nomImage = nom.split((".txt"))[0];
+        nomImage = nomImage.replace("\\", "/");
+        String[] splitPath = nomImage.split("/");
+        nomImage = splitPath[splitPath.length - 1];
         try{
-            ImageIO.write(image,"png",new File(nom + ".png"));
+            ImageIO.write(image,"png",new File(nomImage + ".png"));
         }catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
