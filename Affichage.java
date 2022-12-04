@@ -76,7 +76,10 @@ public class Affichage {
         checkPanel.add(new JLabel("Attention, le traitement est long. Patientez quelques secondes après avoir presse le bouton Soumettre"));
         checkPanel.add(new JLabel("Veillez à bien selectionner au moins une Ip, un ecran blanc n'est pas très passionant"));
 
-        fenetre.add(checkPanel);
+        JScrollPane scrollCheck = new JScrollPane(checkPanel);
+        scrollCheck.getVerticalScrollBar().setUnitIncrement(16);
+
+        fenetre.add(scrollCheck);
         fenetre.setVisible(true);
 
         //update de la fenetre quand on clique sur le bouton

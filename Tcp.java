@@ -4,17 +4,17 @@ public class Tcp implements CoucheTransport {
     private int destinationPort;
     private long sequenceNumber;
     private long acknowledgmentNumber;
-    private int THL; //Transport Header Length (x4 octets)
+    // private int THL; //Transport Header Length (x4 octets)
     private int flagURG; //Pour les donnees prioritaires
     private int flagACK; //Si le champ AN est valide
     private int flagPSH; //Push sans attendre le remplissage complet de la trame
     private int flagRST; //Reinitialisation de la connexion
     private int flagSYN; //Ouverture de la connexion
     private int flagFIN; //Fermeture de connexion
-    private int window; //Taille des tampons libres en reception de l'emetteur du segment
-    private int checksum;
-    private int urgentPointer;
-    private String options;
+    // private int window; //Taille des tampons libres en reception de l'emetteur du segment
+    // private int checksum;
+    // private int urgentPointer;
+    // private String options;
     
     
     
@@ -25,18 +25,18 @@ public class Tcp implements CoucheTransport {
         destinationPort = extraction(4,8    ,16);
         sequenceNumber = Long.parseLong(contenu.substring(8,16),16);
         acknowledgmentNumber = Long.parseLong(contenu.substring(16,24),16);
-        THL = extraction(24,25,16);
+        // THL = extraction(24,25,16);
         flagURG = extraction(26,27) / 2; //Division par 2 pour extraire le second bit de poids faible
         flagACK = extraction(26,27) % 2; //%2 pour extraire le bit de poid faible de l'octet
         flagPSH = extraction(27,28) / 8;
         flagRST = (extraction(27,28) / 4) % 2; //On retire 2 bit à droite et un bit à gauche
         flagSYN = (extraction(27,28) / 2) % 2;
         flagFIN = extraction(27,28) % 2;
-        window = extraction(28,32,16);
-        checksum = extraction(32,36,16);
-        urgentPointer = extraction(36,39,16);
-        if (contenu.length() > 39)
-        options = contenu.substring(40);
+        // window = extraction(28,32,16);
+        // checksum = extraction(32,36,16);
+        // urgentPointer = extraction(36,39,16);
+        // if (contenu.length() > 39)
+        // options = contenu.substring(40);
     }
     
     /*
