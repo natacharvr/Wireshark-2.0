@@ -1,32 +1,37 @@
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.image.*;
-import java.io.*;
-
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.Border;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.image.*;
+import javax.imageio.ImageIO;
+import java.io.*;
+import java.awt.*;
+import java.util.List;
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 
-public class TestGraphique {
-    public static String nom = "";
+public class Affichage {
+    public static final Border blackline = BorderFactory.createLineBorder(Color.black);
     private static boolean nomAcquis = false;
     private static boolean ipDefinies = false;
-    public static void main(String[] args) {
-        //La fenetre :
+    private static String nom = "";
+
+    public static JFrame fenetre(){
         JFrame fenetre = new JFrame("Wireshark 2.0");
         fenetre.setLayout(new BorderLayout());
         fenetre.setSize(1000, 600);
         fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        return fenetre;
+    }
 
+    public static String recupNom(JFrame fenetre){
         //Récupérer le nom du fichier :
         JPanel recup = new JPanel();
+        recup.setLayout(new BoxLayout(recup, BoxLayout.Y_AXIS));
         recup.add(new JLabel("Entrez le chemin absolu du fichier contenant les traces"));
         JTextArea nomFichier = new JTextArea(".txt");
+        nomFichier.setSize(100, 10);
         recup.add(nomFichier);
         JButton envoyerNom = new JButton("Soumettre");
         recup.add(envoyerNom);
@@ -48,15 +53,10 @@ public class TestGraphique {
                 e1.printStackTrace();
             }
         }
-        
-        //Les datas des trames
-        Analyseur a = new Analyseur(nom + ".txt");
-        List<String> ListIp = a.diffIp();
+        return nom;
+    }
 
-        //Outil pour afficher les borders des panels
-        Border blackline = BorderFactory.createLineBorder(Color.black);
-
-        //Les ckeckbox pour les filtres
+    public static void selectIp(JFrame fenetre, List<String> ListIp){
         JPanel checkPanel = new JPanel();
         checkPanel.setLayout(new BoxLayout(checkPanel, BoxLayout.Y_AXIS));
         checkPanel.add(new JLabel("Selectionnez les Ip dont vous voulez visualiser les trames (entrantes et sortantes)"));
@@ -76,7 +76,7 @@ public class TestGraphique {
         checkPanel.add(new JLabel("Veillez à bien selectionner au moins une Ip, un ecran blanc n'est pas très passionant"));
 
         fenetre.add(checkPanel);
-        fenetre.setVisible(true);            
+        fenetre.setVisible(true);
 
         //update de la fenetre quand on clique sur le bouton
         btn1.addActionListener(new ActionListener(){
@@ -93,9 +93,14 @@ public class TestGraphique {
 
                 //Affichage off puis on pour refresh
                 fenetre.setVisible(false);
+
+                //Après le traitement des donnees fournies par l'utilisateur, on retire le sondage et on va afficher ce qu'il demande
+                fenetre.remove(checkPanel);
                 ipDefinies = true;
             }
         } );
+
+
         while (!ipDefinies){
             try {
                 Thread.sleep(100);
@@ -103,7 +108,9 @@ public class TestGraphique {
                 e1.printStackTrace();
             }
         }
-        //Recuperer les Ip avec lesquelles interragissent celles selectionnees (pour un affichage au top)
+    }
+
+    public static List<String> getIpConcernees(List<String> ListIp, Analyseur a){
         //Utilisation d'un set pour eliminer les doublons
         HashSet<String> temp = new HashSet<String>(); 
         for (String s : ListIp){
@@ -117,47 +124,23 @@ public class TestGraphique {
         //ListIpConcernees contient toutes les Ip dont on devra afficher une colonne (celles qui nous interressent + celles avec qui elles interragissent)
         ArrayList<String> ListeIpConcernees = new ArrayList<String>(ListIp);
         ListeIpConcernees.addAll(temp);
+        return ListeIpConcernees;
+    }
 
-        //Après le traitement des donnees fournies par l'utilisateur, on retire le sondage et on va afficher ce qu'il demande
-        fenetre.remove(checkPanel);
-
-        //Panneau avec toutes les legendes et le graphique
-        JPanel total = new JPanel();
-        total.setLayout(new BoxLayout(total, BoxLayout.X_AXIS));
-        total.setAlignmentY(JPanel.TOP_ALIGNMENT);
-
-
-        //Panneau du graphique et de sa legende
-        JPanel graphique = new JPanel();
-        graphique.setLayout(new BoxLayout(graphique, BoxLayout.Y_AXIS));
-        graphique.setAlignmentY(JPanel.TOP_ALIGNMENT);
-        graphique.setBorder(blackline);
-
-
-        //Le graphique
-        Graph graph = new Graph(ListeIpConcernees.size(), a.nbTramesConcernee(ListIp), a.sourceDest(ListeIpConcernees, ListIp), a);
+    public static void export(JPanel total){
+        BufferedImage image = new BufferedImage(total.getSize().width, total.getSize().height, BufferedImage.TYPE_3BYTE_BGR); 
         
-        //La legende
-        JPanel legende = new JPanel();
-        legende.setLayout(new BoxLayout(legende, BoxLayout.X_AXIS));
-        legende.setAlignmentX(Component.LEFT_ALIGNMENT);
-        legende.setSize(graph.getWidth(), 50);
-        legende.add(new JLabel("                                     "));
-        for (String s : ListeIpConcernees) {
-            legende.add(new JLabel(s));
-            legende.add(new JLabel("                          "));
-        } 
-        JLabel spac = new JLabel("                                 ");
-        legende.add(spac);
-        legende.setBorder(blackline);
+        Graphics g = image.createGraphics();
+        total.paint(g);
+        g.dispose();
+        try{
+            ImageIO.write(image,"png",new File(nom + ".png"));
+        }catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
 
-
-        //Ajout au panel
-        graphique.add(legende);
-        graphique.add(graph);
-        graphique.setPreferredSize(graph.getPreferredSize());        
-        
-        //Panneau des descriptions de trames
+    public static JPanel descriptionTames(Analyseur a, List<String> ListIp){
         JPanel descrTrames = new JPanel();
         descrTrames.setLayout(new BoxLayout(descrTrames, BoxLayout.Y_AXIS));
         descrTrames.setAlignmentY(JPanel.TOP_ALIGNMENT);
@@ -173,36 +156,38 @@ public class TestGraphique {
             descrTrames.add(space4);
             JLabel space5 = new JLabel(" ");
             descrTrames.add(space5);
-            
         }
-        
-        //ajout au total
-        // total.add(checkPanel);
-        total.add(graphique);
-        total.add(descrTrames);
-        
-        JScrollPane scrollGraphLegende = new JScrollPane(total);
-        scrollGraphLegende.getVerticalScrollBar().setUnitIncrement(16);
-        scrollGraphLegende.getHorizontalScrollBar().setUnitIncrement(16);
+        return descrTrames;
+    }
 
-        fenetre.add(scrollGraphLegende);
-    
-        //Affichage des elements :
-        fenetre.setVisible(true);
-        
+    public static JPanel legende(List<String> ListeIpConcernees, int width){
+        JPanel legende = new JPanel();
+        legende.setLayout(new BoxLayout(legende, BoxLayout.X_AXIS));
+        legende.setAlignmentX(Component.LEFT_ALIGNMENT);
+        legende.setSize(width, 50);
+        legende.add(new JLabel("                                     "));
+        for (String s : ListeIpConcernees) {
+            legende.add(new JLabel(s));
+            legende.add(new JLabel("                          "));
+        } 
+        JLabel spac = new JLabel("                                 ");
+        legende.add(spac);
+        legende.setBorder(blackline);
+        return legende;
+    }
 
-        //export 
-        BufferedImage image = new BufferedImage(total.getSize().width, total.getSize().height, BufferedImage.TYPE_3BYTE_BGR); 
-        
-        Graphics g = image.createGraphics();
-        total.paint(g);
-        g.dispose();
-        try{
-            ImageIO.write(image,"png",new File(nom + ".png"));
-        }catch (Exception ex) {
-            System.out.println(ex.getMessage());
-        }
-        fenetre.setVisible(true);
+    public static JPanel total(){
+        JPanel total = new JPanel();
+        total.setLayout(new BoxLayout(total, BoxLayout.X_AXIS));
+        total.setAlignmentY(JPanel.TOP_ALIGNMENT);
+        return total;
+    }
 
+    public static JPanel graphique(){
+        JPanel graphique = new JPanel();
+        graphique.setLayout(new BoxLayout(graphique, BoxLayout.Y_AXIS));
+        graphique.setAlignmentY(JPanel.TOP_ALIGNMENT);
+        graphique.setBorder(blackline);
+        return graphique;
     }
 }
