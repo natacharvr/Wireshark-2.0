@@ -27,48 +27,48 @@ public class Affichage {
     }
 
     public static String recupFichier(JFrame fenetre) {
-		// frame to contains GUI elements
-		JFrame f = new JFrame("Selectionnez le fichier .txt à analyser");
-
-		// set the size of the frame
-		f.setSize(400, 400);
-
-		// set the frame's visibility
-		f.setVisible(true);
-
-		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    	//Récupérer le nom du fichier :
+    	
+    	// make a panel to add the buttons and labels
+        JPanel recup = new JPanel();
+        //recup.setLayout(new BoxLayout(recup, BoxLayout.Y_AXIS)); // -> Plus beau sans
+        recup.add(new JLabel("Veuillez selectionner fichier contenant les traces"));
 
 		// button to open save dialog
-		JButton button1 = new JButton("Valider");
+		JButton button1 = new JButton("Ouvrir");
 
 		// button to open open dialog
-		JButton button2 = new JButton("Ouvrir");
+		JButton button2 = new JButton("Valider");
 
 		// make an object of the class filechooser
-		SelecteurFichier f1 = new SelecteurFichier();
+		SelecteurFichier selecteurfichier = new SelecteurFichier();
 
 		// add action listener to the button to capture user
 		// response on buttons
-		button1.addActionListener(f1);
-		button2.addActionListener(f1);
-
-		// make a panel to add the buttons and labels
-		JPanel p = new JPanel();
+		button1.addActionListener(selecteurfichier);
+		button2.addActionListener(selecteurfichier);
 
 		// add buttons to the frame
-		p.add(button1);
-		p.add(button2);
-
-		// set the label to its initial value
-		SelecteurFichier.l = new JLabel("no file selected");
+		recup.add(button1);
+		recup.add(button2);
 
 		// add panel to the frame
-		p.add(SelecteurFichier.l);
-		f.add(p);
+		recup.add(selecteurfichier.nomfichier);
+		fenetre.add(recup);
 
-		f.setVisible(true);
+		fenetre.setVisible(true);
 		
-		return "";
+        while (!selecteurfichier.isSelectionDone()){
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e1) {
+                e1.printStackTrace();
+            }
+        }
+        fenetre.remove(recup);
+        fenetre.setVisible(false);
+		
+		return selecteurfichier.nomfichier.getText();
     }
     
     public static String recupNom(JFrame fenetre){
