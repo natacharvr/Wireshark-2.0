@@ -4,8 +4,7 @@ public class Http implements CoucheApplication {
     public static boolean isHttp(String http){
         
         String httpAscii = asciiToString(http);
-        // System.out.println(httpAscii);
-        return (httpAscii.contains("HTTP") || httpAscii.contains("http"));
+         return httpAscii.contains("HTTP");
     }
 
     public static String asciiToString(String http){
