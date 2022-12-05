@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.HashSet;
 
-import javax.swing.text;
+import javax.swing.text.*;
 
 public class Affichage {
     public static final Border blackline = BorderFactory.createLineBorder(Color.black);
@@ -145,17 +145,10 @@ public class Affichage {
         String[] splitPath = nomImage.split("/");
         nomImage = splitPath[splitPath.length - 1];
         try{
-            ImageIO.write(image,"png",new File(nomImage + ".png"));
+            ImageIO.write(image,"jpg",new File(nomImage + ".jpg"));
         }catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
-
-        Document document = new Document(PageSize.A4, 20, 20, 20, 20);
-        PdfWriter.getInstance(document, new FileOutputStream("test.pdf"));
-        document.open();
-        Image image = Image.getInstance(getClass().getResource(nomImage + ".png"));
-        document.add(image);
-        document.close();
     }
 
     public static JPanel descriptionTrames(Analyseur a, List<String> ListIp){
