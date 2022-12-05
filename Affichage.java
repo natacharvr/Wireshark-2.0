@@ -99,7 +99,7 @@ public class Affichage {
                 fenetre.setVisible(false);
 
                 //Après le traitement des donnees fournies par l'utilisateur, on retire le sondage et on va afficher ce qu'il demande
-                fenetre.remove(checkPanel);
+                fenetre.remove(scrollCheck);
                 ipDefinies = true;
             }
         } );

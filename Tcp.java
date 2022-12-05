@@ -4,7 +4,7 @@ public class Tcp implements CoucheTransport {
     private int destinationPort;
     private long sequenceNumber;
     private long acknowledgmentNumber;
-    // private int THL; //Transport Header Length (x4 octets)
+    private int THL; //Transport Header Length (x4 octets)
     private int flagURG; //Pour les donnees prioritaires
     private int flagACK; //Si le champ AN est valide
     private int flagPSH; //Push sans attendre le remplissage complet de la trame
@@ -15,6 +15,7 @@ public class Tcp implements CoucheTransport {
     // private int checksum;
     // private int urgentPointer;
     // private String options;
+    private Http http = null;
     
     
     
@@ -25,7 +26,7 @@ public class Tcp implements CoucheTransport {
         destinationPort = extraction(4,8    ,16);
         sequenceNumber = Long.parseLong(contenu.substring(8,16),16);
         acknowledgmentNumber = Long.parseLong(contenu.substring(16,24),16);
-        // THL = extraction(24,25,16);
+        THL = extraction(24,25,16);
         flagURG = extraction(26,27) / 2; //Division par 2 pour extraire le second bit de poids faible
         flagACK = extraction(26,27) % 2; //%2 pour extraire le bit de poid faible de l'octet
         flagPSH = extraction(27,28) / 8;
@@ -37,6 +38,9 @@ public class Tcp implements CoucheTransport {
         // urgentPointer = extraction(36,39,16);
         // if (contenu.length() > 39)
         // options = contenu.substring(40);
+        if (isHttp()){
+            http = new Http(contenu.substring(THL*8));
+        }
     }
     
     /*
@@ -77,6 +81,10 @@ public class Tcp implements CoucheTransport {
     	// sb.append("Checksum: " + checksum + "\n");
     	// sb.append("Urgent Pointer: " + urgentPointer + "\n");
     	// sb.append("Options RAW: " + options + "\n");
+        if (http != null){
+            sb.append("<font color = 'red'> http : </font>");
+            sb.append(http.toString());
+        }
     	return sb.toString();
     }
 
@@ -86,6 +94,13 @@ public class Tcp implements CoucheTransport {
 
     public int getDestinationPort(){
         return destinationPort;
+    }
+
+    public boolean isHttp(){
+        if (contenu.length() > THL*8){
+            return Http.isHttp(contenu.substring(THL*8));
+        }
+        return false;
     }
 
 }
