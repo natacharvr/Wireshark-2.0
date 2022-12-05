@@ -15,7 +15,7 @@ public class Tcp implements CoucheTransport {
     // private int checksum;
     // private int urgentPointer;
     // private String options;
-    private Http http = null;
+    private CoucheApplication application = null;
     
     
     
@@ -39,7 +39,7 @@ public class Tcp implements CoucheTransport {
         // if (contenu.length() > 39)
         // options = contenu.substring(40);
         if (isHttp()){
-            http = new Http(contenu.substring(THL*8));
+            application = new Http(contenu.substring(THL*8));
         }
     }
     
@@ -81,9 +81,9 @@ public class Tcp implements CoucheTransport {
     	// sb.append("Checksum: " + checksum + "\n");
     	// sb.append("Urgent Pointer: " + urgentPointer + "\n");
     	// sb.append("Options RAW: " + options + "\n");
-        if (http != null){
+        if (application != null){
             sb.append("<font color = 'red'> http : </font>");
-            sb.append(http.toString());
+            sb.append(application.toString());
         }
     	return sb.toString();
     }
