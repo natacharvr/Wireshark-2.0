@@ -30,6 +30,9 @@ public class Affichage {
         JPanel recup = new JPanel();
         recup.setLayout(new BoxLayout(recup, BoxLayout.Y_AXIS));
         recup.add(new JLabel("Entrez le chemin absolu du fichier contenant les traces"));
+        recup.add(new JLabel("<html> <font color='red'> Attention </font> Si le fichier fourni contient des trames non ethernet elles ne seront pas affichées </html>"));
+        recup.add(new JLabel("<html> <font color='green'> Attention </font> Si le fichier fourni contient plus de 681 trames ethernet, le graphique sera incomplet"));
+
         JTextField nomFichier = new JTextField(".txt", 100);
         nomFichier.setMaximumSize(new Dimension(fenetre.getWidth(), 20));
         nomFichier.setSize(100, 10);
