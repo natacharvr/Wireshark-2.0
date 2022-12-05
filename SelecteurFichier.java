@@ -62,38 +62,14 @@ public class SelecteurFichier extends JFrame implements ActionListener {
 
 		f.setVisible(true);
 	}
+	
 	public void actionPerformed(ActionEvent evt)
 	{
-		// if the user presses the save button show the save dialog
+		// on récupère les boutons disponibles
 		String com = evt.getActionCommand();
 
 		if (com.equals("Valider")) {
-			// create an object of JFileChooser class
-			JFileChooser j = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
-
-			// restrict the user to select files of all types
-			j.setAcceptAllFileFilterUsed(false);
-
-			// set a title for the dialog
-			j.setDialogTitle("Select a .txt file");
-
-			// only allow files of .txt extension
-			FileNameExtensionFilter restrict = new FileNameExtensionFilter("Only .txt files", "txt");
-			j.addChoosableFileFilter(restrict);
-
-			// invoke the showsSaveDialog function to show the save dialog
-			int r = j.showSaveDialog(null);
-
-			// if the user selects a file
-			if (r == JFileChooser.APPROVE_OPTION)
-
-			{
-				// set the label to the path of the selected file
-				l.setText(j.getSelectedFile().getAbsolutePath());
-			}
-			// if the user cancelled the operation
-			else
-				l.setText("Vous avez interrompu la sélection");
+			System.out.println(l.getText());
 		}
 		// if the user presses the open dialog show the open dialog
 
