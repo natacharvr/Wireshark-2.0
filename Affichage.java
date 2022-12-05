@@ -149,7 +149,7 @@ public class Affichage {
         }
     }
 
-    public static JPanel descriptionTames(Analyseur a, List<String> ListIp){
+    public static JPanel descriptionTrames(Analyseur a, List<String> ListIp){
         JPanel descrTrames = new JPanel();
         descrTrames.setLayout(new BoxLayout(descrTrames, BoxLayout.Y_AXIS));
         descrTrames.setAlignmentY(JPanel.TOP_ALIGNMENT);

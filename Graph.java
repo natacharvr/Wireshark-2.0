@@ -10,7 +10,7 @@ public class Graph extends JPanel {
     int [][] sourceDest; //Un tableau qui contient des couples indice Ip source, indice Ip destination (donc compris entre 0 et nbTrames)
     Analyseur a;
     public static final int deltaX = 150; //L'espace entre deux lignes verticales
-    public static final int deltaY = 48; //L'escapce entre deux lignes horizontales
+    public static final int deltaY = 51; //L'escapce entre deux lignes horizontales
 
     public Graph(int nbLignes, int nbTrames, int[][] sourceDest, Analyseur a) {
         super();
