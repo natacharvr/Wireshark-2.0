@@ -11,8 +11,6 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.HashSet;
 
-import javax.swing.text.*;
-
 public class Affichage {
     public static final Border blackline = BorderFactory.createLineBorder(Color.black);
     private static boolean nomAcquis = false;
@@ -199,6 +197,7 @@ public class Affichage {
         graphique.setLayout(new BoxLayout(graphique, BoxLayout.Y_AXIS));
         graphique.setAlignmentY(JPanel.TOP_ALIGNMENT);
         graphique.setBorder(blackline);
+        graphique.setSize(graphique.getPreferredSize());
         return graphique;
     }
 }

@@ -33,7 +33,7 @@ public class Graph extends JPanel {
 
     @Override
     public int getHeight(){
-        return (nbTrames + 2) * deltaY; 
+        return (nbTrames + 2) * deltaY;
     }
 
     @Override
