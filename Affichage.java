@@ -216,17 +216,17 @@ public class Affichage {
     }
 
     public static JPanel legende(List<String> ListeIpConcernees, int width){
+    	//La légende (encadré en haut avec les IP)
         JPanel legende = new JPanel();
         legende.setLayout(new BoxLayout(legende, BoxLayout.X_AXIS));
         legende.setAlignmentX(Component.LEFT_ALIGNMENT);
         legende.setSize(width, 50);
-        legende.add(new JLabel("                                     "));
+        legende.add(new JLabel("                            ")); //Décalage initial pour centrer l'IP avec la ligne verticale
         for (String s : ListeIpConcernees) {
             legende.add(new JLabel(s));
-            legende.add(new JLabel("                          "));
+            legende.add(new JLabel("              "));
         } 
-        JLabel spac = new JLabel("                                 ");
-        legende.add(spac);
+        legende.add(new JLabel("                               "));  //Décalage pour que la bordure droite s'aligne avec l'encadré
         legende.setBorder(blackline);
         return legende;
     }

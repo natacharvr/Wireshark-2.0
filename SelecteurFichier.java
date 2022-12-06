@@ -1,5 +1,6 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -37,8 +38,11 @@ public class SelecteurFichier extends JFrame implements ActionListener {
 		// if the user presses the open dialog show the open dialog
 
 		else {
+	    	String path = System.getProperty("user.dir");
+	    	File dir = new File(path);
+			
 			// create an object of JFileChooser class
-			JFileChooser j = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
+			JFileChooser j = new JFileChooser(FileSystemView.getFileSystemView().getChild(dir,"tramesTest"));
 
 			// restrict the user to select files of all types
 			j.setAcceptAllFileFilterUsed(false);
@@ -59,8 +63,8 @@ public class SelecteurFichier extends JFrame implements ActionListener {
 				nomfichier.setText(j.getSelectedFile().getAbsolutePath());
 			}
 			// if the user cancelled the operation
-			else
-				nomfichier.setText("Vous avez interrompu la sélection");
+			//else
+			//	nomfichier.setText("Vous avez interrompu la sélection");
 		}
 	}
 }
