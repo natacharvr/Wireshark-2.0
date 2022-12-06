@@ -29,21 +29,21 @@ public class Ipv4 implements CoucheReseau {
     }
 
     /**
-     * Coupe la string contenu pour récupérer la version, et la transforme en int
+     * Coupe la string contenu pour recuperer la version, et la transforme en int
      */
     public void version(){
         version = Integer.parseInt("" + contenu.charAt(0));
     }
 
     /**
-     * Coupe la string contenu pour récupérer la headerLength, et la transforme en int
+     * Coupe la string contenu pour recuperer la headerLength, et la transforme en int
      */
     public void headerLength(){
         headerLength = Integer.parseInt("" + contenu.charAt(1)) * 4;
     }
 
     /**
-     * Coupe la string contenu pour récupérer la taille, et la transforme en int
+     * Coupe la string contenu pour recuperer la taille, et la transforme en int
      */
     public void size(){
         String res = contenu.substring(6, 11);
@@ -52,7 +52,7 @@ public class Ipv4 implements CoucheReseau {
     }
     
     /**
-     * Récupère la sous chaine contenant l'identifiant de la trame et la transforme en int, en convertissant depuis la base 16
+     * Recupère la sous chaine contenant l'identifiant de la trame et la transforme en int, en convertissant depuis la base 16
      */
     public void identifier(){
         String res = contenu.substring(12, 17);
@@ -61,14 +61,14 @@ public class Ipv4 implements CoucheReseau {
     }
 
     /**
-     * Récupère le time to live de la trame
+     * Recupère le time to live de la trame
      */
     public void TTL(){
         TTL = Integer.parseInt(contenu.substring(24, 26), 16);
     }
 
     /**
-     * Récupère le protocol de la trame (notamment si c'est du tcp ou non)
+     * Recupère le protocol de la trame (notamment si c'est du tcp ou non)
      */
     public void protocol(){
         protocol = contenu.substring(27, 29);
@@ -79,16 +79,20 @@ public class Ipv4 implements CoucheReseau {
             protocol = "TCP ("+ protocol + ")";
             transport = new Tcp(contenu.substring(headerLength * 3));
             break;
+
+            case "11" : //si le type est 11, c'est une trame UDP
+            protocol = "UDP ("+ protocol + ")";
+            break;
         }
     }
 
 
     /**
-     * Récupère l'adresse Ip source, la convertit en base 10 et l'assemble pour avoirdes points entre les nombres
+     * Recupère l'adresse Ip source, la convertit en base 10 et l'assemble pour avoirdes points entre les nombres
      */
     public void sourceIp(){
         String res = contenu.substring(36, 47);
-        Pattern p = Pattern.compile("(..) (..) (..) (..)"); //Permet de récupérer un tableau de taille 5 avec les motifs qui correspondent (un motif est entre parenthèses)
+        Pattern p = Pattern.compile("(..) (..) (..) (..)"); //Permet de recuperer un tableau de taille 5 avec les motifs qui correspondent (un motif est entre parenthèses)
         Matcher m = p.matcher(res);
         if(m.find()){
             res = "";
@@ -101,7 +105,7 @@ public class Ipv4 implements CoucheReseau {
     }
 
     /**
-     * Récupère l'adresse Ip destination, la convertit en base 10 et l'assemble pour avoirdes points entre les nombres
+     * Recupère l'adresse Ip destination, la convertit en base 10 et l'assemble pour avoirdes points entre les nombres
      */
     public void destinationIp(){
         String res = contenu.substring(48, 59);

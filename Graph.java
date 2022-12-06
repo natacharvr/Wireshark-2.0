@@ -3,10 +3,9 @@ import java.awt.*;
 
 import java.awt.Graphics;
 
-@SuppressWarnings("serial")
 public class Graph extends JPanel {
     //Classe qui permet de dessiner le graphique de l'interface
-    int nbLignes; //Le nombre d'Ip différentes 
+    int nbLignes; //Le nombre d'Ip differentes 
     int nbTrames; //Le nombre de trames à dessiner
     int [][] sourceDest; //Un tableau qui contient des couples indice Ip source, indice Ip destination (donc compris entre 0 et nbTrames)
     Analyseur a;
@@ -34,7 +33,7 @@ public class Graph extends JPanel {
 
     @Override
     public int getHeight(){
-        return (nbTrames + 2) * deltaY; 
+        return (nbTrames + 2) * deltaY;
     }
 
     @Override
@@ -45,9 +44,9 @@ public class Graph extends JPanel {
     /**
      * @param g L'outil graphique
      * @param x1 l'abscisse de l'origine de la flèche
-     * @param y1 L'ordonnée de l'origine de la flèche
+     * @param y1 L'ordonnee de l'origine de la flèche
      * @param x2 L'abscisse de la destination de la flèche
-     * @param y2 L'ordonnée de la destination de la flèche
+     * @param y2 L'ordonnee de la destination de la flèche
      */
     public void drawArrow(Graphics g, int x1, int y1, int x2, int y2, int sourcePort, int destinationPort){
     	Color initialColor = g.getColor();
@@ -59,10 +58,12 @@ public class Graph extends JPanel {
             int[] xpoints = {x2 - 6, x2 - 6, x2};
             int[] ypoints = {y2 - 4, y2 + 4, y2};
             triangle = new Polygon(xpoints, ypoints, 3);
-            g.setColor(Color.blue);
-            g.drawString(sp, x1 - 54 , y1 + 5);
-            g.setColor(Color.red);
-            g.drawString(dp, x2 + 8, y2 + 5);
+            if (sourcePort != -1){
+                g.setColor(Color.blue);
+                g.drawString(sp, x1 - 54 , y1 + 5);
+                g.setColor(Color.red);
+                g.drawString(dp, x2 + 8, y2 + 5);
+            }
 
         }
         else {
@@ -70,10 +71,12 @@ public class Graph extends JPanel {
             int[] xpoints = {x2 + 6, x2 + 6, x2};
             int[] ypoints = {y2 - 4, y2 + 4, y2};
             triangle = new Polygon(xpoints, ypoints, 3);
-            g.setColor(Color.blue);
-            g.drawString(sp, x1 + 8, y1 + 5);
-            g.setColor(Color.red);
-            g.drawString(dp, x2 - 54, y2 + 5);
+            if (sourcePort != -1){
+                g.setColor(Color.blue);
+                g.drawString(sp, x1 + 8, y1 + 5);
+                g.setColor(Color.red);
+                g.drawString(dp, x2 - 54, y2 + 5);
+            }
         }
         g.setColor(initialColor);
         
@@ -83,7 +86,7 @@ public class Graph extends JPanel {
     }
 
     /* (non-Javadoc)
-     * Dessine le graphique, avec nbTrames flèches espacées de deltaY, dont les coordonnées en x sont données grâce au tableau sourceDest
+     * Dessine le graphique, avec nbTrames flèches espacees de deltaY, dont les coordonnees en x sont donnees grâce au tableau sourceDest
      */
     public void paint(Graphics g){
         int x = 0;
