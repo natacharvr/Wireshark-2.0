@@ -1,5 +1,6 @@
 import javax.swing.*;
 import javax.swing.border.Border;
+import javax.swing.filechooser.*;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -25,6 +26,51 @@ public class Affichage {
         return fenetre;
     }
 
+    public static String recupFichier(JFrame fenetre) {
+    	//Récupérer le nom du fichier :
+    	
+    	// make a panel to add the buttons and labels
+        JPanel recup = new JPanel();
+        //recup.setLayout(new BoxLayout(recup, BoxLayout.Y_AXIS)); // -> Plus beau sans
+        recup.add(new JLabel("Veuillez selectionner fichier contenant les traces"));
+
+		// button to open save dialog
+		JButton button1 = new JButton("Ouvrir");
+
+		// button to open open dialog
+		JButton button2 = new JButton("Valider");
+
+		// make an object of the class filechooser
+		SelecteurFichier selecteurfichier = new SelecteurFichier();
+
+		// add action listener to the button to capture user
+		// response on buttons
+		button1.addActionListener(selecteurfichier);
+		button2.addActionListener(selecteurfichier);
+
+		// add buttons to the frame
+		recup.add(button1);
+		recup.add(button2);
+
+		// add panel to the frame
+		recup.add(selecteurfichier.nomfichier);
+		fenetre.add(recup);
+
+		fenetre.setVisible(true);
+		
+        while (!selecteurfichier.isSelectionDone()){
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e1) {
+                e1.printStackTrace();
+            }
+        }
+        fenetre.remove(recup);
+        fenetre.setVisible(false);
+		
+		return selecteurfichier.nomfichier.getText();
+    }
+    
     public static String recupNom(JFrame fenetre){
         //Récupérer le nom du fichier :
         JPanel recup = new JPanel();

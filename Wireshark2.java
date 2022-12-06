@@ -8,7 +8,7 @@ public class Wireshark2 {
         JFrame fenetre = Affichage.fenetre();
         
         String nom = "";
-        nom = Affichage.recupNom(fenetre);
+        nom = Affichage.recupFichier(fenetre);
         
         //Les datas des trames
         Analyseur a = new Analyseur(nom);
