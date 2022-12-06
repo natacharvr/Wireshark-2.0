@@ -53,7 +53,7 @@ public class Wireshark2 {
         fenetre.setVisible(true);
         
         //export 
-        Affichage.export(total);
+        Affichage.export(total, nom);
         fenetre.setVisible(true);
     }
 }

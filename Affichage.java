@@ -1,6 +1,5 @@
 import javax.swing.*;
 import javax.swing.border.Border;
-import javax.swing.filechooser.*;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,9 +13,7 @@ import java.util.HashSet;
 
 public class Affichage {
     public static final Border blackline = BorderFactory.createLineBorder(Color.black);
-    private static boolean nomAcquis = false;
     private static boolean ipDefinies = false;
-    private static String nom = "";
 
     public static JFrame fenetre(){
         JFrame fenetre = new JFrame("Wireshark 2.0");
@@ -31,6 +28,9 @@ public class Affichage {
     	
     	// make a panel to add the buttons and labels
         JPanel recup = new JPanel();
+        recup.setLayout(new BoxLayout(recup, BoxLayout.Y_AXIS));
+        JPanel buttons = new JPanel();
+        buttons.setLayout(new BoxLayout(buttons, BoxLayout.X_AXIS));
         //recup.setLayout(new BoxLayout(recup, BoxLayout.Y_AXIS)); // -> Plus beau sans
         recup.add(new JLabel("Veuillez selectionner fichier contenant les traces"));
 
@@ -49,8 +49,13 @@ public class Affichage {
 		button2.addActionListener(selecteurfichier);
 
 		// add buttons to the frame
-		recup.add(button1);
-		recup.add(button2);
+        buttons.add(new JLabel("                                               "));
+		buttons.add(button1);
+		buttons.add(button2);
+        recup.add(new JLabel("  "));
+        recup.add(buttons);
+        recup.add(new JLabel("  "));
+        recup.add(new JLabel("  "));
 
 		// add panel to the frame
 		recup.add(selecteurfichier.nomfichier);
@@ -66,44 +71,8 @@ public class Affichage {
             }
         }
         fenetre.remove(recup);
-        fenetre.setVisible(false);
-		
+        fenetre.setVisible(false);		
 		return selecteurfichier.nomfichier.getText();
-    }
-    
-    public static String recupNom(JFrame fenetre){
-        //Récupérer le nom du fichier :
-        JPanel recup = new JPanel();
-        recup.setLayout(new BoxLayout(recup, BoxLayout.Y_AXIS));
-        recup.add(new JLabel("Entrez le chemin absolu du fichier contenant les traces"));
-        recup.add(new JLabel("<html> <font color='red'> Attention </font> Si le fichier fourni contient des trames non ethernet elles ne seront pas affichées </html>"));
-        recup.add(new JLabel("<html> <font color='green'> Attention </font> Si le fichier fourni contient plus de 681 trames ethernet, le graphique sera incomplet"));
-
-        JTextField nomFichier = new JTextField(".txt", 100);
-        nomFichier.setMaximumSize(new Dimension(fenetre.getWidth(), 20));
-        nomFichier.setSize(100, 10);
-        recup.add(nomFichier);
-        JButton envoyerNom = new JButton("Soumettre");
-        recup.add(envoyerNom);
-        envoyerNom.addActionListener(new ActionListener(){
-            public void actionPerformed(ActionEvent e){
-                nom = nomFichier.getText();
-                fenetre.remove(recup);
-                fenetre.setVisible(false);
-                nomAcquis = true;
-            }
-        });
-
-        fenetre.add(recup);
-        fenetre.setVisible(true);
-        while (!nomAcquis){
-            try {
-                Thread.sleep(100);
-            } catch (InterruptedException e1) {
-                e1.printStackTrace();
-            }
-        }
-        return nom;
     }
 
     public static void selectIp(JFrame fenetre, List<String> ListIp){
@@ -179,7 +148,7 @@ public class Affichage {
         return ListeIpConcernees;
     }
 
-    public static void export(JPanel total){
+    public static void export(JPanel total, String nom){
         BufferedImage image = new BufferedImage(total.getSize().width, total.getSize().height, BufferedImage.TYPE_3BYTE_BGR); 
         
         Graphics g = image.createGraphics();

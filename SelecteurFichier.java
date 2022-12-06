@@ -1,23 +1,19 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.filechooser.FileSystemView;
 
-@SuppressWarnings("serial")
 public class SelecteurFichier extends JFrame implements ActionListener {
 	// Jlabel to show the files user selects
 	JLabel nomfichier;
 	private boolean selectionOK = false;
 
 	// a default constructor
-	SelecteurFichier()
-	{
+	SelecteurFichier() {
 		// set the label to its initial value
 		nomfichier = new JLabel("no file selected");
 	}
@@ -26,8 +22,7 @@ public class SelecteurFichier extends JFrame implements ActionListener {
 		return selectionOK;
 	}
 	
-	public void actionPerformed(ActionEvent evt)
-	{
+	public void actionPerformed(ActionEvent evt) {
 		// on récupère les boutons disponibles
 		String com = evt.getActionCommand();
 
