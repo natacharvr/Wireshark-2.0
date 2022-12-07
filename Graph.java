@@ -54,20 +54,23 @@ public class Graph extends JPanel {
         String sp = "port " + sourcePort;
         String dp = "port " + destinationPort;
         if (x1 < x2){
-        	g.setColor(initialColor);
             int[] xpoints = {x2 - 6, x2 - 6, x2};
             int[] ypoints = {y2 - 4, y2 + 4, y2};
             triangle = new Polygon(xpoints, ypoints, 3);
             if (sourcePort != -1){
                 g.setColor(Color.blue);
-                g.drawString(sp, x1 - 54 , y1 + 5);
+                g.drawString(sp, x1 - 75 , y1 + 5);
                 g.setColor(Color.red);
                 g.drawString(dp, x2 + 8, y2 + 5);
             }
+            //bleu si flèche vers la droite
+            g.setColor(Color.blue);
+            g.drawLine(x1, y1, x2, y2);
+            g.drawPolygon(triangle);
+            g.fillPolygon(triangle);
 
         }
         else {
-        	g.setColor(initialColor);
             int[] xpoints = {x2 + 6, x2 + 6, x2};
             int[] ypoints = {y2 - 4, y2 + 4, y2};
             triangle = new Polygon(xpoints, ypoints, 3);
@@ -75,8 +78,13 @@ public class Graph extends JPanel {
                 g.setColor(Color.blue);
                 g.drawString(sp, x1 + 8, y1 + 5);
                 g.setColor(Color.red);
-                g.drawString(dp, x2 - 54, y2 + 5);
+                g.drawString(dp, x2 - 75, y2 + 5);
             }
+            //rouge si flèche vers la gauche
+            g.setColor(Color.red);
+            g.drawLine(x1, y1, x2, y2);
+            g.drawPolygon(triangle);
+            g.fillPolygon(triangle);
         }
         g.setColor(initialColor);
         
