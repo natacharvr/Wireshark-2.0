@@ -32,7 +32,7 @@ public class Affichage {
     	// make a panel to add the buttons and labels
         JPanel recup = new JPanel();
         //recup.setLayout(new BoxLayout(recup, BoxLayout.Y_AXIS)); // -> Plus beau sans
-        recup.add(new JLabel("Veuillez selectionner fichier contenant les traces"));
+        recup.add(new JLabel("Veuillez selectionner le fichier contenant les traces"));
 
 		// button to open save dialog
 		JButton button1 = new JButton("Ouvrir");
@@ -71,6 +71,8 @@ public class Affichage {
 		return selecteurfichier.nomfichier.getText();
     }
     
+    //N'est plus utilisé, ancienne version pour inserer le path soi-même
+    /*
     public static String recupNom(JFrame fenetre){
         //Récupérer le nom du fichier :
         JPanel recup = new JPanel();
@@ -102,6 +104,7 @@ public class Affichage {
         }
         return nom;
     }
+    */
 
     public static void selectIp(JFrame fenetre, List<String> ListIp){
         JPanel checkPanel = new JPanel();
@@ -189,7 +192,7 @@ public class Affichage {
         String[] splitPath = nomImage.split("/");
         nomImage = splitPath[splitPath.length - 1];
         try{
-            ImageIO.write(image,"png",new File(nomImage + ".png"));
+            ImageIO.write(image,"png",new File(nomImage + "png                                                                                                                         "));
         }catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
@@ -204,13 +207,10 @@ public class Affichage {
         descrTrames.add(new JLabel(" "));
         descrTrames.add(new JLabel(" "));
         
-        for (int i = 0; i < a.nbTramesConcernee(ListIp); i ++){            
-            JLabel txt = new JLabel("<html>Trame n°" + i + " " + a.DataTrameI(i) + "</html>");
-            descrTrames.add(txt);
-            JLabel space4 = new JLabel(" ");
-            descrTrames.add(space4);
-            JLabel space5 = new JLabel(" ");
-            descrTrames.add(space5);
+        for (int i = 0; i < a.nbTramesConcernee(ListIp); i ++){
+            descrTrames.add(new JLabel("<html>Trame n°" + i + " " + a.DataTrameI(i) + "</html>"));
+            descrTrames.add(new JLabel(" "));
+            descrTrames.add(new JLabel(" "));
         }
         return descrTrames;
     }
