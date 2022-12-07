@@ -62,27 +62,27 @@ public class Tcp implements CoucheTransport {
     	StringBuilder sb = new StringBuilder();
     	// sb.append("sourcePort: " + sourcePort + "\n");
     	// sb.append("destinationPort: " + destinationPort + "\n");
-    	sb.append("Sequence Number: <font color='green'>" + sequenceNumber + "</font> ");
-    	sb.append("Acknowledgment Number: <font color='green'>" + acknowledgmentNumber + " </font>");
     	// sb.append("THL: " + THL + "\n");
         if (flagURG == 1)
-    	sb.append("<font color='green'> URG: </font>");
+    	sb.append("<font color='red'> URG: </font>");
         if (flagACK == 1)
-    	sb.append("<font color='green'> ACK </font>");
+    	sb.append("<font color='red'> ACK </font>");
         if (flagPSH == 1)
-    	sb.append("<font color='green'> PSH </font>");
+    	sb.append("<font color='red'> PSH </font>");
         if (flagRST == 1)
-    	sb.append("<font color='green'> RST </font>");
+    	sb.append("<font color='red'> RST </font>");
         if (flagSYN == 1)
-    	sb.append("<font color='green'> SYN </font>");
+    	sb.append("<font color='red'> SYN </font>");
         if (flagFIN == 1)
-    	sb.append("<font color='green'> FIN </font>");
+    	sb.append("<font color='red'> FIN </font>");
+    	sb.append("Sequence Number: <font color='green'>" + sequenceNumber + "</font> ");
+    	sb.append("Acknowledgment Number: <font color='green'>" + acknowledgmentNumber + " </font>");
     	// sb.append("Window: " + window + "\n");
     	// sb.append("Checksum: " + checksum + "\n");
     	// sb.append("Urgent Pointer: " + urgentPointer + "\n");
     	// sb.append("Options RAW: " + options + "\n");
         if (application != null){
-            sb.append("<font color = 'red'> http : </font>");
+            sb.append("<font color = 'orange'> http : </font>");
             sb.append(application.toString());
         }
     	return sb.toString();
