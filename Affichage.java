@@ -1,6 +1,5 @@
 import javax.swing.*;
 import javax.swing.border.Border;
-import javax.swing.filechooser.*;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,9 +13,7 @@ import java.util.HashSet;
 
 public class Affichage {
     public static final Border blackline = BorderFactory.createLineBorder(Color.black);
-    private static boolean nomAcquis = false;
     private static boolean ipDefinies = false;
-    private static String nom = "";
 
     public static JFrame fenetre(){
         JFrame fenetre = new JFrame("Wireshark 2.0");
@@ -31,6 +28,9 @@ public class Affichage {
     	
     	// make a panel to add the buttons and labels
         JPanel recup = new JPanel();
+        recup.setLayout(new BoxLayout(recup, BoxLayout.Y_AXIS));
+        JPanel buttons = new JPanel();
+        buttons.setLayout(new BoxLayout(buttons, BoxLayout.X_AXIS));
         //recup.setLayout(new BoxLayout(recup, BoxLayout.Y_AXIS)); // -> Plus beau sans
         recup.add(new JLabel("Veuillez selectionner le fichier contenant les traces"));
 
@@ -49,8 +49,13 @@ public class Affichage {
 		button2.addActionListener(selecteurfichier);
 
 		// add buttons to the frame
-		recup.add(button1);
-		recup.add(button2);
+        buttons.add(new JLabel("                                               "));
+		buttons.add(button1);
+		buttons.add(button2);
+        recup.add(new JLabel("  "));
+        recup.add(buttons);
+        recup.add(new JLabel("  "));
+        recup.add(new JLabel("  "));
 
 		// add panel to the frame
 		recup.add(selecteurfichier.nomfichier);
@@ -66,11 +71,10 @@ public class Affichage {
             }
         }
         fenetre.remove(recup);
-        fenetre.setVisible(false);
-		
+        fenetre.setVisible(false);		
 		return selecteurfichier.nomfichier.getText();
     }
-    
+
     //N'est plus utilisé, ancienne version pour inserer le path soi-même
     /*
     public static String recupNom(JFrame fenetre){
@@ -179,7 +183,7 @@ public class Affichage {
         return ListeIpConcernees;
     }
 
-    public static void export(JPanel total){
+    public static void export(JPanel total, String nom){
         BufferedImage image = new BufferedImage(total.getSize().width, total.getSize().height, BufferedImage.TYPE_3BYTE_BGR); 
         
         Graphics g = image.createGraphics();
@@ -192,13 +196,13 @@ public class Affichage {
         String[] splitPath = nomImage.split("/");
         nomImage = splitPath[splitPath.length - 1];
         try{
-            ImageIO.write(image,"png",new File(nomImage + "png                                                                                                                         "));
+            ImageIO.write(image,"jpg",new File(nomImage + ".jpg")):
         }catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
     }
 
-    public static JPanel descriptionTames(Analyseur a, List<String> ListIp){
+    public static JPanel descriptionTrames(Analyseur a, List<String> ListIp){
         JPanel descrTrames = new JPanel();
         descrTrames.setLayout(new BoxLayout(descrTrames, BoxLayout.Y_AXIS));
         descrTrames.setAlignmentY(JPanel.TOP_ALIGNMENT);
@@ -243,6 +247,7 @@ public class Affichage {
         graphique.setLayout(new BoxLayout(graphique, BoxLayout.Y_AXIS));
         graphique.setAlignmentY(JPanel.TOP_ALIGNMENT);
         graphique.setBorder(blackline);
+        graphique.setSize(graphique.getPreferredSize());
         return graphique;
     }
 }

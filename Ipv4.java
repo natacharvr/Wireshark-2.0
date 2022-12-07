@@ -79,6 +79,10 @@ public class Ipv4 implements CoucheReseau {
             protocol = "TCP ("+ protocol + ")";
             transport = new Tcp(contenu.substring(headerLength * 3));
             break;
+
+            case "11" : //si le type est 11, c'est une trame UDP
+            protocol = "UDP ("+ protocol + ")";
+            break;
         }
     }
 

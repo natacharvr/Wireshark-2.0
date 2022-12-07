@@ -40,7 +40,7 @@ public class Wireshark2 {
         graphique.setPreferredSize(graph.getPreferredSize());        
         
         //Panneau des descriptions de trames
-        JPanel descrTrames = Affichage.descriptionTames(a, ListIp);
+        JPanel descrTrames = Affichage.descriptionTrames(a, ListIp);
         
         //ajout au total
         total.add(graphique);
@@ -55,7 +55,7 @@ public class Wireshark2 {
         fenetre.setVisible(true);
         
         //export 
-        Affichage.export(total);
+        Affichage.export(total, nom);
         fenetre.setVisible(true);
     }
 }

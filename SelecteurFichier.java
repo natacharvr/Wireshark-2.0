@@ -1,12 +1,12 @@
 import java.awt.event.ActionEvent;
 import javax.swing.*;
 import java.awt.event.ActionListener;
+
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.filechooser.FileSystemView;
 
-@SuppressWarnings("serial")
 public class SelecteurFichier extends JFrame implements ActionListener {
 	//JLabel utilisé pour afficher le chemin du fichier sélectionné
 	JTextField nomfichier;
@@ -23,8 +23,7 @@ public class SelecteurFichier extends JFrame implements ActionListener {
 		return selectionOK;
 	}
 	
-	public void actionPerformed(ActionEvent evt)
-	{
+	public void actionPerformed(ActionEvent evt) {
 		// on récupère les boutons disponibles
 		String com = evt.getActionCommand();
 
