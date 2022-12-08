@@ -25,4 +25,6 @@ Au lancement, il vous est demandé de fournir un fichier texte contenant la trac
 
 Si vous fournissez un chemin de fichier inexistant, la procédure continue, vous n'obtiendrez aucune information intéressante, seulement un écran vide. 
 
-Ensuite, une liste d'adresses Ip s'affiche, sélectionnez celles dont vous voulez voir les interactions et cliquez sur ``Valider``. 
+Ensuite, une liste d'adresses Ip s'affiche, sélectionnez celles dont vous voulez voir les interactions et cliquez sur ``Soumettre``. 
+
+Enjoy!
