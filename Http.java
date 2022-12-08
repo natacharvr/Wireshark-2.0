@@ -1,4 +1,5 @@
 public class Http implements CoucheApplication {
+	
     private String ligne1, host;
 
     public static boolean isHttp(String http){
