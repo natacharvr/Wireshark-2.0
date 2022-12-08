@@ -25,7 +25,7 @@ public class Affichage {
 
     public static String recupFichier(JFrame fenetre) {
     	//Récupérer le nom du fichier :
-    	
+     
     	// make a panel to add the buttons and labels
         JPanel recup = new JPanel();
         recup.setLayout(new BoxLayout(recup, BoxLayout.Y_AXIS));
