@@ -196,7 +196,7 @@ public class Affichage {
         String[] splitPath = nomImage.split("/");
         nomImage = splitPath[splitPath.length - 1];
         try{
-            ImageIO.write(image,"jpg",new File(nomImage + ".jpg")):
+            ImageIO.write(image,"jpg",new File(nomImage + ".jpg"));
         }catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
