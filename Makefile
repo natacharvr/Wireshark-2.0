@@ -11,8 +11,5 @@ default: classes
 
 classes: $(CLASSES:.java=.class)
 
-jar: $(classes)
-    jar cvf myjarfile.jar $(classes)
-
 clean:
         $(RM) *.class
