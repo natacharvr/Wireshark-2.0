@@ -3,6 +3,7 @@ import java.awt.*;
 
 import java.awt.Graphics;
 
+@SuppressWarnings("serial")
 public class Graph extends JPanel {
     //Classe qui permet de dessiner le graphique de l'interface
     int nbLignes; //Le nombre d'Ip differentes 

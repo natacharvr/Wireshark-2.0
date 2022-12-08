@@ -25,30 +25,28 @@ public class Affichage {
 
     public static String recupFichier(JFrame fenetre) {
     	//Récupérer le nom du fichier :
-     
-    	// make a panel to add the buttons and labels
+    	
+    	// Panel pour afficher les boutons et le nom du fichier sélectionné
         JPanel recup = new JPanel();
         recup.setLayout(new BoxLayout(recup, BoxLayout.Y_AXIS));
         JPanel buttons = new JPanel();
         buttons.setLayout(new BoxLayout(buttons, BoxLayout.X_AXIS));
-        //recup.setLayout(new BoxLayout(recup, BoxLayout.Y_AXIS)); // -> Plus beau sans
-        recup.add(new JLabel("Veuillez selectionner le fichier contenant les traces"));
+        recup.add(new JLabel("Veuillez selectionner le fichier contenant les traces :"));
 
-		// button to open save dialog
+		// Ouvre l'explorateur du fichier
 		JButton button1 = new JButton("Ouvrir");
 
-		// button to open open dialog
+		// Valide le fichier selectionné
 		JButton button2 = new JButton("Valider");
 
-		// make an object of the class filechooser
+		// Objet qui permet l'interaction avec l'explorateur de fichier
 		SelecteurFichier selecteurfichier = new SelecteurFichier();
 
-		// add action listener to the button to capture user
-		// response on buttons
+		// les boutons sont mis à l'écoute des actions utilisateurs
 		button1.addActionListener(selecteurfichier);
 		button2.addActionListener(selecteurfichier);
 
-		// add buttons to the frame
+		// Ajout des boutons sur le panel
         buttons.add(new JLabel("                                               "));
 		buttons.add(button1);
 		buttons.add(button2);
@@ -57,7 +55,9 @@ public class Affichage {
         recup.add(new JLabel("  "));
         recup.add(new JLabel("  "));
 
-		// add panel to the frame
+		// ajout du panel à la fenetre
+        selecteurfichier.nomfichier.setMaximumSize(new Dimension(500, 20));
+        selecteurfichier.nomfichier.setSize(100, 10);
 		recup.add(selecteurfichier.nomfichier);
 		fenetre.add(recup);
 
@@ -126,8 +126,8 @@ public class Affichage {
         JButton btn1 = new JButton("Soumettre");
 
         checkPanel.add(btn1);
-        checkPanel.add(new JLabel("Attention, le traitement est long. Patientez quelques secondes après avoir presse le bouton Soumettre"));
-        checkPanel.add(new JLabel("Veillez à bien selectionner au moins une Ip, un ecran blanc n'est pas très passionant"));
+        checkPanel.add(new JLabel("Attention, le traitement peut être long. Patientez quelques secondes après avoir pressé le bouton Soumettre"));
+        checkPanel.add(new JLabel("Veillez à bien selectionner au moins une IP, un ecran blanc n'est pas très passionant"));
 
         JScrollPane scrollCheck = new JScrollPane(checkPanel);
         scrollCheck.getVerticalScrollBar().setUnitIncrement(16);
@@ -207,6 +207,7 @@ public class Affichage {
         descrTrames.setLayout(new BoxLayout(descrTrames, BoxLayout.Y_AXIS));
         descrTrames.setAlignmentY(JPanel.TOP_ALIGNMENT);
         //Sauts de lignes pour aligner avec les flèches
+        descrTrames.add(new JLabel(" "));
         descrTrames.add(new JLabel(" "));
         descrTrames.add(new JLabel(" "));
         descrTrames.add(new JLabel(" "));

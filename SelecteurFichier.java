@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.filechooser.FileSystemView;
 
+@SuppressWarnings("serial")
 public class SelecteurFichier extends JFrame implements ActionListener {
 	//JLabel utilisé pour afficher le chemin du fichier sélectionné
 	JTextField nomfichier;
@@ -16,7 +17,7 @@ public class SelecteurFichier extends JFrame implements ActionListener {
 	SelecteurFichier()
 	{
 		// indique à l'utilisateur qu'il n'a pas encore selectionné de fichier
-		nomfichier = new JTextField("aucun fichier sélectionné");
+		nomfichier = new JTextField("Ou entrez dans ce champs le chemin absolu du fichier contenant les traces");
 	}
 	
 	public boolean isSelectionDone() {
