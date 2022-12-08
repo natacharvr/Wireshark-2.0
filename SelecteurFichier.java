@@ -1,21 +1,23 @@
 import java.awt.event.ActionEvent;
+import javax.swing.*;
 import java.awt.event.ActionListener;
 
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.filechooser.FileSystemView;
 
+@SuppressWarnings("serial")
 public class SelecteurFichier extends JFrame implements ActionListener {
-	// Jlabel to show the files user selects
-	JLabel nomfichier;
+	//JLabel utilisé pour afficher le chemin du fichier sélectionné
+	JTextField nomfichier;
 	private boolean selectionOK = false;
 
-	// a default constructor
-	SelecteurFichier() {
-		// set the label to its initial value
-		nomfichier = new JLabel("no file selected");
+	// constructeur par défaut
+	SelecteurFichier()
+	{
+		// indique à l'utilisateur qu'il n'a pas encore selectionné de fichier
+		nomfichier = new JTextField("Ou entrez dans ce champs le chemin absolu du fichier contenant les traces");
 	}
 	
 	public boolean isSelectionDone() {
@@ -29,33 +31,39 @@ public class SelecteurFichier extends JFrame implements ActionListener {
 		if (com.equals("Valider")) {
 			selectionOK = true;
 		}
-		// if the user presses the open dialog show the open dialog
-
+		
+		// Si l'utilisateur utilise
 		else {
-			// create an object of JFileChooser class
-			JFileChooser j = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
 
-			// restrict the user to select files of all types
+			// objet permettant d'ouvrir un explorateur de fichier au dossier spécifié
+			JFileChooser j = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
+			
+			//Decommenter les 3 lignes dessous et commenter la ligne dessus pour que l'explorateur ouvre
+			//directement le dossier contenant les trames test
+			/*
+	    	String path = System.getProperty("user.dir");
+	    	File dir = new File(path);
+			JFileChooser j = new JFileChooser(FileSystemView.getFileSystemView().getChild(dir,"tramesTest"));
+			*/
+
+			// restreint l'utilisateur quant aux types de fichier qu'il peut sélectionner
 			j.setAcceptAllFileFilterUsed(false);
 
-			// set a title for the dialog
+			// titre dans l'explorateur de fichier
 			j.setDialogTitle("Select a .txt file");
 
-			// only allow files of .txt extension
+			// n'autorise que les extensions .txt
 			FileNameExtensionFilter restrict = new FileNameExtensionFilter("Only .txt files", "txt");
 			j.addChoosableFileFilter(restrict);
 
-			// invoke the showsOpenDialog function to show the save dialog
+			// ouvre l'explorateur de fichier
 			int r = j.showOpenDialog(null);
 
-			// if the user selects a file
+			// si l'utilisateur selectionne un fichier
 			if (r == JFileChooser.APPROVE_OPTION) {
-				// set the label to the path of the selected file
+				// ajoute le chemin du fichier au label
 				nomfichier.setText(j.getSelectedFile().getAbsolutePath());
 			}
-			// if the user cancelled the operation
-			else
-				nomfichier.setText("Vous avez interrompu la sélection");
 		}
 	}
 }

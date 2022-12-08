@@ -26,29 +26,27 @@ public class Affichage {
     public static String recupFichier(JFrame fenetre) {
     	//Récupérer le nom du fichier :
     	
-    	// make a panel to add the buttons and labels
+    	// Panel pour afficher les boutons et le nom du fichier sélectionné
         JPanel recup = new JPanel();
         recup.setLayout(new BoxLayout(recup, BoxLayout.Y_AXIS));
         JPanel buttons = new JPanel();
         buttons.setLayout(new BoxLayout(buttons, BoxLayout.X_AXIS));
-        //recup.setLayout(new BoxLayout(recup, BoxLayout.Y_AXIS)); // -> Plus beau sans
-        recup.add(new JLabel("Veuillez selectionner fichier contenant les traces"));
+        recup.add(new JLabel("Veuillez selectionner le fichier contenant les traces :"));
 
-		// button to open save dialog
+		// Ouvre l'explorateur du fichier
 		JButton button1 = new JButton("Ouvrir");
 
-		// button to open open dialog
+		// Valide le fichier selectionné
 		JButton button2 = new JButton("Valider");
 
-		// make an object of the class filechooser
+		// Objet qui permet l'interaction avec l'explorateur de fichier
 		SelecteurFichier selecteurfichier = new SelecteurFichier();
 
-		// add action listener to the button to capture user
-		// response on buttons
+		// les boutons sont mis à l'écoute des actions utilisateurs
 		button1.addActionListener(selecteurfichier);
 		button2.addActionListener(selecteurfichier);
 
-		// add buttons to the frame
+		// Ajout des boutons sur le panel
         buttons.add(new JLabel("                                               "));
 		buttons.add(button1);
 		buttons.add(button2);
@@ -57,7 +55,9 @@ public class Affichage {
         recup.add(new JLabel("  "));
         recup.add(new JLabel("  "));
 
-		// add panel to the frame
+		// ajout du panel à la fenetre
+        selecteurfichier.nomfichier.setMaximumSize(new Dimension(500, 20));
+        selecteurfichier.nomfichier.setSize(100, 10);
 		recup.add(selecteurfichier.nomfichier);
 		fenetre.add(recup);
 
@@ -75,6 +75,41 @@ public class Affichage {
 		return selecteurfichier.nomfichier.getText();
     }
 
+    //N'est plus utilisé, ancienne version pour inserer le path soi-même
+    /*
+    public static String recupNom(JFrame fenetre){
+        //Récupérer le nom du fichier :
+        JPanel recup = new JPanel();
+        recup.setLayout(new BoxLayout(recup, BoxLayout.Y_AXIS));
+        recup.add(new JLabel("Entrez le chemin absolu du fichier contenant les traces"));
+        JTextField nomFichier = new JTextField(".txt", 100);
+        nomFichier.setMaximumSize(new Dimension(fenetre.getWidth(), 20));
+        nomFichier.setSize(100, 10);
+        recup.add(nomFichier);
+        JButton envoyerNom = new JButton("Soumettre");
+        recup.add(envoyerNom);
+        envoyerNom.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e){
+                nom = nomFichier.getText();
+                fenetre.remove(recup);
+                fenetre.setVisible(false);
+                nomAcquis = true;
+            }
+        });
+
+        fenetre.add(recup);
+        fenetre.setVisible(true);
+        while (!nomAcquis){
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e1) {
+                e1.printStackTrace();
+            }
+        }
+        return nom;
+    }
+    */
+
     public static void selectIp(JFrame fenetre, List<String> ListIp){
         JPanel checkPanel = new JPanel();
         checkPanel.setLayout(new BoxLayout(checkPanel, BoxLayout.Y_AXIS));
@@ -91,8 +126,8 @@ public class Affichage {
         JButton btn1 = new JButton("Soumettre");
 
         checkPanel.add(btn1);
-        checkPanel.add(new JLabel("Attention, le traitement est long. Patientez quelques secondes après avoir presse le bouton Soumettre"));
-        checkPanel.add(new JLabel("Veillez à bien selectionner au moins une Ip, un ecran blanc n'est pas très passionant"));
+        checkPanel.add(new JLabel("Attention, le traitement peut être long. Patientez quelques secondes après avoir pressé le bouton Soumettre"));
+        checkPanel.add(new JLabel("Veillez à bien selectionner au moins une IP, un ecran blanc n'est pas très passionant"));
 
         JScrollPane scrollCheck = new JScrollPane(checkPanel);
         scrollCheck.getVerticalScrollBar().setUnitIncrement(16);
@@ -175,30 +210,28 @@ public class Affichage {
         descrTrames.add(new JLabel(" "));
         descrTrames.add(new JLabel(" "));
         descrTrames.add(new JLabel(" "));
+        descrTrames.add(new JLabel(" "));
         
-        for (int i = 0; i < a.nbTramesConcernee(ListIp); i ++){            
-            JLabel txt = new JLabel("<html>Trame n°" + i + " " + a.DataTrameI(i) + "</html>");
-            descrTrames.add(txt);
-            JLabel space4 = new JLabel(" ");
-            descrTrames.add(space4);
-            JLabel space5 = new JLabel(" ");
-            descrTrames.add(space5);
+        for (int i = 0; i < a.nbTramesConcernee(ListIp); i ++){
+            descrTrames.add(new JLabel("<html>Trame n°" + i + " " + a.DataTrameI(i) + "</html>"));
+            descrTrames.add(new JLabel(" "));
+            descrTrames.add(new JLabel(" "));
         }
         return descrTrames;
     }
 
     public static JPanel legende(List<String> ListeIpConcernees, int width){
+    	//La légende (encadré en haut avec les IP)
         JPanel legende = new JPanel();
         legende.setLayout(new BoxLayout(legende, BoxLayout.X_AXIS));
         legende.setAlignmentX(Component.LEFT_ALIGNMENT);
         legende.setSize(width, 50);
-        legende.add(new JLabel("                                     "));
+        legende.add(new JLabel("                            ")); //Décalage initial pour centrer l'IP avec la ligne verticale
         for (String s : ListeIpConcernees) {
             legende.add(new JLabel(s));
-            legende.add(new JLabel("                          "));
+            legende.add(new JLabel("              "));
         } 
-        JLabel spac = new JLabel("                                 ");
-        legende.add(spac);
+        legende.add(new JLabel("                               "));  //Décalage pour que la bordure droite s'aligne avec l'encadré
         legende.setBorder(blackline);
         return legende;
     }
