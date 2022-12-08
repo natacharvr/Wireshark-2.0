@@ -1,5 +1,5 @@
 # Wireshark-2.0
-projet LU3IN033
+projet LU3IN033 : groupe 1, Natacha Rivière, Mathis Romero
 
 ## Description :
 Programmation d'un visualisateur de flux de trafic réseau. Notre analysateur prend en charge des trames échangées entre deux machines.
@@ -11,10 +11,11 @@ Les protocoles suivants sont reconnus :
 - Couche 7 : HTTP
 
 ### Fonctionnement
-Le programme prend un fichier texte en entrée ( à programmer ). Ce fichier doit être composé de trames de la forme :
-XXXX YY YY YY YY YY ... YY YY YY YY YY YY YY zzzzzzzzzzzzzzzzzzzzzzzzzzz
+Le programme demande la selection d'un fichier texte. Ce fichier doit être composé de trames de la forme :
+XXXX  YY YY YY YY YY ... YY YY YY YY YY YY YY zzzzzzzzzzzzzzzzzzzzzzzzzzz
 avec :
-- XXXX l'indice du premier octet de la ligne,
+
+- XXXX l'indice du premier octet de la ligne, 
 - YY YY les octets de la ligne, entre 1 et n, séparés par des espaces
 - zzzz des caractères facultatifs qui correspondent à la transcription en ascii dans wireshark, qui sont éliminés.
 
