@@ -16,7 +16,7 @@ Le programme demande la sélection d'un fichier texte. Ce fichier doit être com
 XXXX  YY YY YY YY YY ... YY YY YY YY YY YY YY zzzzzzzzzzzzzzzzzzzzzzzzzzz
 avec :
 
-- XXXX l'indice du premier octet de la ligne, suivi de 1 à 3 espaces;
+- XXXX l'indice du premier octet de la ligne, suivi de 1 espace ou plus;
 - YY YY les octets de la ligne, entre 1 et n, séparés par des espaces;
 - zzzz des caractères facultatifs qui correspondent à la transcription en ascii dans Wireshark, qui sont éliminés.
 
