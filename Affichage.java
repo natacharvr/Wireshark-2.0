@@ -29,47 +29,52 @@ public class Affichage {
     	// Panel pour afficher les boutons et le nom du fichier sélectionné
         JPanel recup = new JPanel();
         recup.setLayout(new BoxLayout(recup, BoxLayout.Y_AXIS));
-        JLabel logo = new JLabel(new ImageIcon("/Users/mathis/git/Wireshark-2.0/FlowGuardLogo.png"));
-        recup.add(logo);
+        
+        JPanel logoPanel = new JPanel();
+        logoPanel.setLayout(new BoxLayout(logoPanel, BoxLayout.X_AXIS));
+        JLabel logo = new JLabel(new ImageIcon("/Users/mathis/git/Wireshark-2.0/ImageAcceuil.png"));
+        logoPanel.add(Box.createHorizontalGlue());
+        logoPanel.add(logo);
+        logoPanel.add(Box.createHorizontalGlue());
+        recup.add(logoPanel);
+        
+        JPanel textPanel = new JPanel();
+        textPanel.setLayout(new BoxLayout(textPanel, BoxLayout.X_AXIS));
+        JLabel text = new JLabel("Veuillez selectionner le fichier contenant les traces :");
+        textPanel.add(Box.createHorizontalGlue());
+        textPanel.add(text);
+        textPanel.add(Box.createHorizontalGlue());
+        recup.add(textPanel);
+        
         JPanel buttons = new JPanel();
-        //buttons.setLayout(new BoxLayout(buttons, BoxLayout.X_AXIS));
-        recup.add(new JLabel("Veuillez selectionner le fichier contenant les traces :"));
-
+        buttons.setLayout(new BoxLayout(buttons, BoxLayout.X_AXIS));
 		// Ouvre l'explorateur du fichier
 		JButton button1 = new JButton("Parcourir");
-		
 		// Ouvre le dossier test
 		JButton button2 = new JButton("Fichiers fournis");
-
 		// Valide le fichier selectionné
 		JButton button3 = new JButton("Valider");
-
 		// Objet qui permet l'interaction avec l'explorateur de fichier
 		SelecteurFichier selecteurfichier = new SelecteurFichier();
-
 		// les boutons sont mis à l'écoute des actions utilisateurs
 		button1.addActionListener(selecteurfichier);
 		button2.addActionListener(selecteurfichier);
 		button3.addActionListener(selecteurfichier);
-
 		// Ajout des boutons sur le panel
-        //buttons.add(new JLabel("                       "));
+		buttons.add(Box.createHorizontalGlue());
 		buttons.add(button1);
 		buttons.add(button2);
 		buttons.add(button3);
+		buttons.add(Box.createHorizontalGlue());
         recup.add(new JLabel("  "));
         recup.add(buttons);
         recup.add(new JLabel("  "));
         recup.add(new JLabel("  "));
 
 		// ajout du panel à la fenetre
-        JPanel champsTXT = new JPanel();
-        champsTXT.setLayout(new BoxLayout(champsTXT, BoxLayout.X_AXIS));
-        champsTXT.add(new JLabel("                                                                 "));
-        selecteurfichier.nomfichier.setMaximumSize(new Dimension(540, 20));
+        selecteurfichier.nomfichier.setMaximumSize(new Dimension(500, 20));
         selecteurfichier.nomfichier.setSize(100, 10);
-        champsTXT.add(selecteurfichier.nomfichier);
-		recup.add(champsTXT);
+		recup.add(selecteurfichier.nomfichier);
 		fenetre.add(recup);
 
 		fenetre.setVisible(true);
