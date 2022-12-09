@@ -5,7 +5,7 @@ public class Http implements CoucheApplication {
     public static boolean isHttp(String http){
         
         String httpAscii = asciiToString(http);
-         return httpAscii.contains("HTTP");
+        return httpAscii.contains("HTTP");
     }
 
     public static String asciiToString(String http){
@@ -23,7 +23,7 @@ public class Http implements CoucheApplication {
         String[] splitAscii = ascii.split("\n");
         ligne1 = splitAscii[0];
         if (splitAscii[1].contains("Host")){
-            host = splitAscii[1].split("host")[0];
+            host = splitAscii[1].split("Host")[0];
         } else {
             host = "";
         }

@@ -17,7 +17,7 @@ Si cette procédure ne fonctionne pas, plusieurs options s'offrent à vous :
 - Vérifiez votre version de Java, une version inférieure à _Java 17_ n'est pas compatible
 
 - ouvrez un terminal dans le dossier contenant l'archive et utilisez la commande ``java -jar Wireshark2.jar``
-- Si les options précédentes ne fonctionne pas non plus, un fichier Makefile vous est fourni. Utilisez la commande ```make``` qui créera un nouveau fichier .jar que vous pourrez lancer comme indiqué plus haut. Cette commande compilera aussi tous les fichiers java utiles, vous pourrez donc également lancer le programme en exécutant ```java Wireshark2``
+- Si les options précédentes ne fonctionne pas non plus, un fichier Makefile vous est fourni. Utilisez la commande ```make``` qui compilera tous les fichiers java utiles, vous pourrez donc également lancer le programme en exécutant ``java Wireshark2``.
 
 #### Utilisation du logiciel
 

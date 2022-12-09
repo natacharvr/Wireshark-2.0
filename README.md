@@ -16,7 +16,7 @@ Le programme demande la sélection d'un fichier texte. Ce fichier doit être com
 XXXX  YY YY YY YY YY ... YY YY YY YY YY YY YY zzzzzzzzzzzzzzzzzzzzzzzzzzz
 avec :
 
-- XXXX l'indice du premier octet de la ligne, suivi de 1 à 3 espaces;
+- XXXX l'indice du premier octet de la ligne, suivi de 1 espace ou plus;
 - YY YY les octets de la ligne, entre 1 et n, séparés par des espaces;
 - zzzz des caractères facultatifs qui correspondent à la transcription en ascii dans Wireshark, qui sont éliminés.
 
@@ -26,4 +26,4 @@ Les découpages internes s'opèrent en sélectionnant les bons indices dans la s
 
 ### Résultat
 Le programme ouvre une fenêtre graphique qui représente avec des flèches les échanges de trames entre différentes machines. Les informations utiles des trames sont données sur la droite du graphique, alignées avec la flèche correspondante.
-Pendant que la fenêtre est ouverte, le programme exporte le résultat graphique sous forme d'image *jpg* dans le dossier courant. 
+Pendant que la fenêtre est ouverte, le programme exporte le résultat graphique sous forme d'image *jpg* dans le dossier courant. Le fichier porte le même nom que le fichier fourni. Si vous donnez ``test.txt`` le fichier exporté sera nommé ``test.jpg``.

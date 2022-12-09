@@ -30,7 +30,7 @@ public class Analyseur {
         //Le pattern p correspond à une ligne sur laquelle il y a 4 caractères qui correspondent à l'indice
         // de la ligne, puis entre 1 et 3 espaces, puis entre 1 et n couples de caractères separes par un espace,
         // et enfin m caractères ne correspondant pas à des octets. Donc chaque ligne contient au moins 1 octet pour fonctionner
-        Pattern p = Pattern.compile("^([\\w]{4})\s{1,3}(([\\w]{2}\s)*([\\w]{2})).*$");
+        Pattern p = Pattern.compile("^([\\w]{4})\s+(([\\w]{2}\s)*([\\w]{2})).*$");
 
         try {
             scan = new Scanner(fichier);
