@@ -26,4 +26,4 @@ Les découpages internes s'opèrent en sélectionnant les bons indices dans la s
 
 ### Résultat
 Le programme ouvre une fenêtre graphique qui représente avec des flèches les échanges de trames entre différentes machines. Les informations utiles des trames sont données sur la droite du graphique, alignées avec la flèche correspondante.
-Pendant que la fenêtre est ouverte, le programme exporte le résultat graphique sous forme d'image *jpg* dans le dossier courant. 
+Pendant que la fenêtre est ouverte, le programme exporte le résultat graphique sous forme d'image *jpg* dans le dossier courant. Le fichier porte le même nom que le fichier fourni. Si vous donnez ``test.txt`` le fichier exporté sera nommé ``test.jpg``.
