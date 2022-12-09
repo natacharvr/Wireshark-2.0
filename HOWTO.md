@@ -17,7 +17,7 @@ Si cette procédure ne fonctionne pas, plusieurs options s'offrent à vous :
 - Vérifiez votre version de Java, une version inférieure à _Java 17_ n'est pas compatible
 
 - ouvrez un terminal dans le dossier contenant l'archive et utilisez la commande ``java -jar Wireshark2.jar``
-- Si les options précédentes ne fonctionne pas non plus, un fichier Makefile vous est fourni. Utilisez la commande ```make main```qui créera un nouveau fichier .jar que vous pourrez lancer comme indiqué plus haut.
+- Si les options précédentes ne fonctionne pas non plus, un fichier Makefile vous est fourni. Utilisez la commande ```make``` qui compilera tous les fichiers java utiles, vous pourrez donc également lancer le programme en exécutant ``java Wireshark2``.
 
 #### Utilisation du logiciel
 
@@ -25,4 +25,6 @@ Au lancement, il vous est demandé de fournir un fichier texte contenant la trac
 
 Si vous fournissez un chemin de fichier inexistant, la procédure continue, vous n'obtiendrez aucune information intéressante, seulement un écran vide. 
 
-Ensuite, une liste d'adresses Ip s'affiche, sélectionnez celles dont vous voulez voir les interactions et cliquez sur ``Valider``. 
+Ensuite, une liste d'adresses Ip s'affiche, sélectionnez celles dont vous voulez voir les interactions et cliquez sur ``Soumettre``. 
+
+Enjoy!
